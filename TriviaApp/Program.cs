@@ -34,16 +34,16 @@ namespace TriviaApp
 
                 if (rand.Next(9) == 7)
                 {
-                    notAWinner = aGame.WasIncorrectlyAnswered();
+                    aGame.WasIncorrectlyAnswered();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    aGame.WasCorrectlyAnswered();
                 }
 
 
 
-            } while (notAWinner);
+            } while (aGame.DoesGameContinue());
 
         }
     }

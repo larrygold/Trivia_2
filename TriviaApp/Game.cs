@@ -240,31 +240,28 @@ namespace UglyTrivia
             return _positionOnBoardToQuestionCategoryName[CurrentPlayerPosition];
         }
 
-        public bool WasCorrectlyAnswered()
+        public void WasCorrectlyAnswered()
         {
             if (CurrentPlayerIsInPenaltyBox)
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
-                    DisplayCorrectAnswer();
-                    AddGoldCoin();
-                    DisplayCurrentPlayerGoldCoins();
-                    MoveToNextPlayer();
-                    return DoesGameContinue();
+                    ProcessCorrectAnswer();
                 }
                 else
                 {
                     MoveToNextPlayer();
-                    return true;
                 }
             }
+            ProcessCorrectAnswer();
+        }
 
+        private void ProcessCorrectAnswer()
+        {
             DisplayCorrectAnswer();
             AddGoldCoin();
             DisplayCurrentPlayerGoldCoins();
             MoveToNextPlayer();
-            return DoesGameContinue();
-
         }
 
         private void MoveToNextPlayer()
@@ -292,22 +289,31 @@ namespace UglyTrivia
             Console.WriteLine("Answer was correct!!!!");
         }
 
-        public bool WasIncorrectlyAnswered()
+        public void WasIncorrectlyAnswered()
+        {
+            DisplayIncorrectAnswer();
+            DisplaySentToPenaltyBox();
+            SendToPenaltyBox();
+            MoveToNextPlayer();
+        }
+
+        private void SendToPenaltyBox()
+        {
+            CurrentPlayerIsInPenaltyBox = true;
+        }
+
+        private void DisplaySentToPenaltyBox()
+        {
+            Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
+        }
+
+        private static void DisplayIncorrectAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
-            CurrentPlayerIsInPenaltyBox = true;
-
-            _currentPlayerIndex++;
-
-            if (_currentPlayerIndex == NumberPlayers) 
-                _currentPlayerIndex = 0;
-
-            return true;
         }
 
 
-        private bool DoesGameContinue()
+        public bool DoesGameContinue()
         {
             return _goldCoinsOfEachPlayer.All(x => x != 6);
         }
