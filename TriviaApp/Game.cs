@@ -16,10 +16,10 @@ namespace UglyTrivia
         
         bool[] inPenaltyBox = new bool[6];
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        List<string> popQuestions = new List<string>();
+        List<string> scienceQuestions = new List<string>();
+        List<string> sportsQuestions = new List<string>();
+        List<string> rockQuestions = new List<string>();
 
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
@@ -28,10 +28,10 @@ namespace UglyTrivia
         {
             for (int i = 0; i < 50; i++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(createRockQuestion(i));
+                popQuestions.Add("Pop Question " + i);
+                scienceQuestions.Add(("Science Question " + i));
+                sportsQuestions.Add(("Sports Question " + i));
+                rockQuestions.Add(createRockQuestion(i));
             }
         }
 
@@ -112,22 +112,22 @@ namespace UglyTrivia
             if (currentCategory() == "Pop")
             {
                 Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                popQuestions.RemoveAt(0);
             }
             if (currentCategory() == "Science")
             {
                 Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
+                scienceQuestions.RemoveAt(0);
             }
             if (currentCategory() == "Sports")
             {
                 Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
+                sportsQuestions.RemoveAt(0);
             }
             if (currentCategory() == "Rock")
             {
                 Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
+                rockQuestions.RemoveAt(0);
             }
         }
 
