@@ -9,13 +9,23 @@ namespace TriviaApp
 
         public static void Main(String[] args)
         {
+            Game(null);
+        }
+
+        public static void Game(int? seed)
+        {
             Game aGame = new Game();
 
             aGame.add("Chet");
             aGame.add("Pat");
             aGame.add("Sue");
 
-            Random rand = new Random();
+            Random rand;
+
+            if (seed != null)
+                rand = new Random(seed.Value);
+            else
+                rand = new Random();
 
             do
             {
@@ -34,7 +44,6 @@ namespace TriviaApp
 
 
             } while (notAWinner);
-
 
         }
     }
