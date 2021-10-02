@@ -249,9 +249,8 @@ namespace UglyTrivia
                     DisplayCorrectAnswer();
                     AddGoldCoin();
                     DisplayCurrentPlayerGoldCoins();
-                    bool doesGameContinue = DoesGameContinue();
                     MoveToNextPlayer();
-                    return doesGameContinue;
+                    return DoesGameContinue();
                 }
                 else
                 {
@@ -260,7 +259,7 @@ namespace UglyTrivia
                 }
             }
             else
-            {
+            { 
 
                 Console.WriteLine("Answer was corrent!!!!");
                 CurrentPlayerGoldCoins++;
@@ -269,13 +268,12 @@ namespace UglyTrivia
                         + CurrentPlayerGoldCoins
                         + " Gold Coins.");
 
-                bool winner = DoesGameContinue();
                 _currentPlayerIndex++;
 
                 if (_currentPlayerIndex == NumberPlayers) 
                     _currentPlayerIndex = 0;
 
-                return winner;
+                return DoesGameContinue();
             }
         }
 
@@ -321,7 +319,7 @@ namespace UglyTrivia
 
         private bool DoesGameContinue()
         {
-            return CurrentPlayerGoldCoins != 6;
+            return _goldCoinsOfEachPlayer.All(x => x != 6);
         }
     }
 
