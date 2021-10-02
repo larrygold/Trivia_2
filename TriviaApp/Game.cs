@@ -258,23 +258,13 @@ namespace UglyTrivia
                     return true;
                 }
             }
-            else
-            { 
 
-                Console.WriteLine("Answer was corrent!!!!");
-                CurrentPlayerGoldCoins++;
-                Console.WriteLine(CurrentPlayerName
-                        + " now has "
-                        + CurrentPlayerGoldCoins
-                        + " Gold Coins.");
+            Console.WriteLine("Answer was corrent!!!!");
+            AddGoldCoin();
+            DisplayCurrentPlayerGoldCoins();
+            MoveToNextPlayer();
+            return DoesGameContinue();
 
-                _currentPlayerIndex++;
-
-                if (_currentPlayerIndex == NumberPlayers) 
-                    _currentPlayerIndex = 0;
-
-                return DoesGameContinue();
-            }
         }
 
         private void MoveToNextPlayer()
