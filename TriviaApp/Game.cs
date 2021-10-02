@@ -21,6 +21,7 @@ namespace UglyTrivia
         private readonly List<string> _scienceQuestions;
         private readonly List<string> _sportsQuestions;
         private readonly List<string> _rockQuestions;
+        private readonly List<List<string>> _decksOfQuestions;
 
         private readonly int NumberQuestionsPerDeck = 50;
         private Dictionary<List<string>, string> _deckToHeader;
@@ -36,6 +37,8 @@ namespace UglyTrivia
             _scienceQuestions = new List<string>();
             _sportsQuestions = new List<string>();
             _rockQuestions = new List<string>();
+            _decksOfQuestions = new List<List<string>>()
+                {_popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions};
 
             _deckToHeader = new Dictionary<List<string>, string>()
             {
@@ -47,10 +50,10 @@ namespace UglyTrivia
 
             for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
             {
-                GenerateQuestion(_popQuestions, questionIndex);
-                GenerateQuestion(_scienceQuestions, questionIndex);
-                GenerateQuestion(_sportsQuestions, questionIndex);
-                GenerateQuestion(_rockQuestions, questionIndex);
+                foreach (var deck in _decksOfQuestions)
+                {
+                    GenerateQuestion(deck, questionIndex);
+                }
             }
         }
 
