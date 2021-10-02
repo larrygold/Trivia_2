@@ -109,16 +109,12 @@ namespace UglyTrivia
 
             if (CurrentPlayerIsInPenaltyBox)
             {
-                if (dieValue % 2 != 0)
+                if (MustGetOutOfPenaltyBox(dieValue))
                 {
                     GetOutOfPenaltyBox();
                     DisplayGetOutOfPenaltyBox();
 
-                    UpdatePosition(dieValue);
-                    DisplayUpdatedPosition();
-
-                    DisplayCurrentCategory();
-                    AskQuestion();
+                    PlayNormally(dieValue);
                 }
                 else
                 {
@@ -130,11 +126,22 @@ namespace UglyTrivia
             else
             {
 
-                UpdatePosition(dieValue);
-                DisplayUpdatedPosition();
-                DisplayCurrentCategory();
-                AskQuestion();
+                PlayNormally(dieValue);
+
             }
+        }
+
+        private void PlayNormally(int dieValue)
+        {
+            UpdatePosition(dieValue);
+            DisplayUpdatedPosition();
+            DisplayCurrentCategory();
+            AskQuestion();
+        }
+
+        private static bool MustGetOutOfPenaltyBox(int dieValue)
+        {
+            return dieValue % 2 != 0;
         }
 
         private void StayInPenaltyBox()
