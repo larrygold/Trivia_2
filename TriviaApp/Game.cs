@@ -23,6 +23,7 @@ namespace UglyTrivia
         private readonly List<string> _rockQuestions;
 
         private readonly int NumberQuestionsPerDeck = 50;
+        private Dictionary<List<string>, string> _deckToHeader;
 
 
         public Game()
@@ -36,18 +37,26 @@ namespace UglyTrivia
             _sportsQuestions = new List<string>();
             _rockQuestions = new List<string>();
 
+            _deckToHeader = new Dictionary<List<string>, string>()
+            {
+                {_popQuestions, "Pop"},
+                {_scienceQuestions, "Science"},
+                {_sportsQuestions, "Sports"},
+                {_rockQuestions, "Rock"}
+            };
+
             for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
             {
-                GenerateQuestion(_popQuestions, "Pop Question ", questionIndex);
-                GenerateQuestion(_scienceQuestions, "Science Question ", questionIndex);
-                GenerateQuestion(_sportsQuestions, "Sports Question ", questionIndex);
-                GenerateQuestion(_rockQuestions, "Rock Question ", questionIndex);
+                GenerateQuestion(_popQuestions, questionIndex);
+                GenerateQuestion(_scienceQuestions, questionIndex);
+                GenerateQuestion(_sportsQuestions, questionIndex);
+                GenerateQuestion(_rockQuestions, questionIndex);
             }
         }
 
-        private static void GenerateQuestion(List<string> deck, string header, int questionIndex)
+        private void GenerateQuestion(List<string> deck, int questionIndex)
         {
-            deck.Add(header + questionIndex);
+            deck.Add($"{_deckToHeader[deck]} Question " + questionIndex);
         }
 
         public string CreateRockQuestion(int questionIndex)
