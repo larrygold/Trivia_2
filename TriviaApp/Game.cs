@@ -22,6 +22,12 @@ namespace UglyTrivia
         }
 
         private int[] _goldCoinsOfEachPlayer;
+        private int CurrentPlayerGoldCoins
+        {
+            get => _goldCoinsOfEachPlayer[_currentPlayerIndex];
+            set => _goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
+        }
+
 
         private bool[] _inPenaltyBox;
         private bool CurrentPlayerIsInPenaltyBox
@@ -240,23 +246,27 @@ namespace UglyTrivia
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
-                    _goldCoinsOfEachPlayer[_currentPlayerIndex]++;
+                    DisplayCorrectAnswer();
+
+                    CurrentPlayerGoldCoins++;
                     Console.WriteLine(CurrentPlayerName
                             + " now has "
-                            + _goldCoinsOfEachPlayer[_currentPlayerIndex]
+                            + CurrentPlayerGoldCoins
                             + " Gold Coins.");
 
                     bool winner = DidPlayerWin();
                     _currentPlayerIndex++;
-                    if (_currentPlayerIndex == NumberPlayers) _currentPlayerIndex = 0;
+
+                    if (_currentPlayerIndex == NumberPlayers) 
+                        _currentPlayerIndex = 0;
 
                     return winner;
                 }
                 else
                 {
                     _currentPlayerIndex++;
-                    if (_currentPlayerIndex == NumberPlayers) _currentPlayerIndex = 0;
+                    if (_currentPlayerIndex == NumberPlayers) 
+                        _currentPlayerIndex = 0;
                     return true;
                 }
             }
@@ -264,10 +274,10 @@ namespace UglyTrivia
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                _goldCoinsOfEachPlayer[_currentPlayerIndex]++;
+                CurrentPlayerGoldCoins++;
                 Console.WriteLine(CurrentPlayerName
                         + " now has "
-                        + _goldCoinsOfEachPlayer[_currentPlayerIndex]
+                        + CurrentPlayerGoldCoins
                         + " Gold Coins.");
 
                 bool winner = DidPlayerWin();
@@ -278,6 +288,11 @@ namespace UglyTrivia
 
                 return winner;
             }
+        }
+
+        private static void DisplayCorrectAnswer()
+        {
+            Console.WriteLine("Answer was correct!!!!");
         }
 
         public bool WasIncorrectlyAnswered()
@@ -297,7 +312,7 @@ namespace UglyTrivia
 
         private bool DidPlayerWin()
         {
-            return !(_goldCoinsOfEachPlayer[_currentPlayerIndex] == 6);
+            return !(CurrentPlayerGoldCoins == 6);
         }
     }
 
