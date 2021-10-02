@@ -38,7 +38,6 @@ namespace UglyTrivia
 
         private bool _isGettingOutOfPenaltyBox;
 
-
         private List<string> _popQuestions;
 
         private List<string> _scienceQuestions;
@@ -242,18 +241,18 @@ namespace UglyTrivia
 
         public void WasCorrectlyAnswered()
         {
-            if (CurrentPlayerIsInPenaltyBox)
+            if (CurrentPlayerStaysInPenaltyBox())
             {
-                if (_isGettingOutOfPenaltyBox)
-                {
-                    ProcessCorrectAnswer();
-                }
-                else
-                {
-                    MoveToNextPlayer();
-                }
+                MoveToNextPlayer();
+                return;
             }
+
             ProcessCorrectAnswer();
+        }
+
+        private bool CurrentPlayerStaysInPenaltyBox()
+        {
+            return CurrentPlayerIsInPenaltyBox && !_isGettingOutOfPenaltyBox;
         }
 
         private void ProcessCorrectAnswer()
