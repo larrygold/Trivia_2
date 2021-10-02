@@ -10,31 +10,36 @@ namespace UglyTrivia
 
         private const int NumberPositionsOnBoard = 11;
 
+
+        private List<string> _players;
+
         private int _currentPlayerIndex;
+
+        private int[] _positionOfEachPlayer;
+
+        private int[] _goldCoinsOfEachPlayer;
+        
+        private bool[] _isInPenaltyBoxForEachPlayer;
+        
+        private bool _isCurrentPlayerGettingOutOfPenaltyBox;
+
 
         private List<List<string>> _decksOfQuestions;
 
-        private int[] _goldCoinsOfEachPlayer;
-
-
-        private bool[] _inPenaltyBox;
-
-        private bool _isGettingOutOfPenaltyBox;
-        private List<string> _players;
-
         private List<string> _popQuestions;
-
-        private int[] _positionOfEachPlayer;
-        private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
-
-        private Dictionary<List<string>, string> _questionCategoryDeckToName;
-        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
 
         private List<string> _rockQuestions;
 
         private List<string> _scienceQuestions;
 
         private List<string> _sportsQuestions;
+
+        private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
+
+        private Dictionary<List<string>, string> _questionCategoryDeckToName;
+
+        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
+
 
         public Game()
         {
@@ -59,8 +64,8 @@ namespace UglyTrivia
 
         private bool CurrentPlayerIsInPenaltyBox
         {
-            get => _inPenaltyBox[_currentPlayerIndex];
-            set => _inPenaltyBox[_currentPlayerIndex] = value;
+            get => _isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
+            set => _isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
         }
 
         public void AddPlayer(string playerName)
@@ -117,7 +122,7 @@ namespace UglyTrivia
             _players = new List<string>();
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
-            _inPenaltyBox = new bool[6];
+            _isInPenaltyBoxForEachPlayer = new bool[6];
             _popQuestions = new List<string>();
             _scienceQuestions = new List<string>();
             _sportsQuestions = new List<string>();
@@ -188,7 +193,7 @@ namespace UglyTrivia
 
         private void StayInPenaltyBox()
         {
-            _isGettingOutOfPenaltyBox = false;
+            _isCurrentPlayerGettingOutOfPenaltyBox = false;
         }
 
         private void DisplayStayInPenaltyBox()
@@ -222,7 +227,7 @@ namespace UglyTrivia
 
         private void GetOutOfPenaltyBox()
         {
-            _isGettingOutOfPenaltyBox = true;
+            _isCurrentPlayerGettingOutOfPenaltyBox = true;
         }
 
         private void DisplayCurrentPlayerAndDieValue(int dieValue)
@@ -263,7 +268,7 @@ namespace UglyTrivia
 
         private bool CurrentPlayerStaysInPenaltyBox()
         {
-            return CurrentPlayerIsInPenaltyBox && !_isGettingOutOfPenaltyBox;
+            return CurrentPlayerIsInPenaltyBox && !_isCurrentPlayerGettingOutOfPenaltyBox;
         }
 
         private void ProcessCorrectAnswer()
