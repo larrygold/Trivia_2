@@ -130,15 +130,9 @@ namespace UglyTrivia
             else
             {
 
-                CurrentPlayerPosition += dieValue;
-
-                if (CurrentPlayerPosition > 11) 
-                    CurrentPlayerPosition -= 12;
-
-                Console.WriteLine(CurrentPlayerName
-                        + "'s new location is "
-                        + CurrentPlayerPosition);
-                Console.WriteLine("The category is " + GetCurrentCategory());
+                UpdatePosition(dieValue);
+                DisplayUpdatedPosition();
+                DisplayCurrentCategory();
                 AskQuestion();
             }
         }
