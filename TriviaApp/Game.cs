@@ -250,6 +250,19 @@ namespace UglyTrivia
             ProcessCorrectAnswer();
         }
 
+        public void WasIncorrectlyAnswered()
+        {
+            ProcessIncorrectAnswer();
+        }
+
+        private void ProcessIncorrectAnswer()
+        {
+            DisplayIncorrectAnswer();
+            DisplaySentToPenaltyBox();
+            SendToPenaltyBox();
+            MoveToNextPlayer();
+        }
+
         private bool CurrentPlayerStaysInPenaltyBox()
         {
             return CurrentPlayerIsInPenaltyBox && !_isGettingOutOfPenaltyBox;
@@ -286,14 +299,6 @@ namespace UglyTrivia
         private static void DisplayCorrectAnswer()
         {
             Console.WriteLine("Answer was correct!!!!");
-        }
-
-        public void WasIncorrectlyAnswered()
-        {
-            DisplayIncorrectAnswer();
-            DisplaySentToPenaltyBox();
-            SendToPenaltyBox();
-            MoveToNextPlayer();
         }
 
         private void SendToPenaltyBox()
