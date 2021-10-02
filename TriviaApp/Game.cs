@@ -62,6 +62,56 @@ namespace UglyTrivia
             PopulateAllDecksWithQuestions();
         }
 
+        public void AddPlayer(string playerName)
+        {
+            _players.Add(playerName);
+            DisplayPlayerAdded(playerName);
+        }
+
+        public void Roll(int dieValue)
+        {
+            DisplayCurrentPlayerAndDieValue(dieValue);
+
+            if (CurrentPlayerIsInPenaltyBox)
+            {
+                if (MustGetOutOfPenaltyBox(dieValue))
+                {
+                    GetOutOfPenaltyBox();
+                    DisplayGetOutOfPenaltyBox();
+                }
+                else
+                {
+                    StayInPenaltyBox();
+                    DisplayStayInPenaltyBox();
+                    return;
+                }
+            }
+
+            PlayNormally(dieValue);
+
+        }
+
+        public void WasCorrectlyAnswered()
+        {
+            if (CurrentPlayerStaysInPenaltyBox())
+            {
+                MoveToNextPlayer();
+                return;
+            }
+
+            ProcessCorrectAnswer();
+        }
+
+        public void WasIncorrectlyAnswered()
+        {
+            ProcessIncorrectAnswer();
+        }
+
+        public bool DoesGameContinue()
+        {
+            return _goldCoinsOfEachPlayer.All(x => x != 6);
+        }
+
         private void InitializeAllFields()
         {
             _players = new List<string>();
@@ -124,39 +174,10 @@ namespace UglyTrivia
             deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
         }
 
-        public void AddPlayer(string playerName)
-        {
-            _players.Add(playerName);
-            DisplayPlayerAdded(playerName);
-        }
-
         private void DisplayPlayerAdded(string playerName)
         {
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + NumberPlayers);
-        }
-
-        public void Roll(int dieValue)
-        {
-            DisplayCurrentPlayerAndDieValue(dieValue);
-
-            if (CurrentPlayerIsInPenaltyBox)
-            {
-                if (MustGetOutOfPenaltyBox(dieValue))
-                {
-                    GetOutOfPenaltyBox();
-                    DisplayGetOutOfPenaltyBox();
-                }
-                else
-                {
-                    StayInPenaltyBox();
-                    DisplayStayInPenaltyBox();
-                    return;
-                }
-            }
-
-            PlayNormally(dieValue);
-
         }
 
         private void PlayNormally(int dieValue)
@@ -239,22 +260,6 @@ namespace UglyTrivia
             return _positionOnBoardToQuestionCategoryName[CurrentPlayerPosition];
         }
 
-        public void WasCorrectlyAnswered()
-        {
-            if (CurrentPlayerStaysInPenaltyBox())
-            {
-                MoveToNextPlayer();
-                return;
-            }
-
-            ProcessCorrectAnswer();
-        }
-
-        public void WasIncorrectlyAnswered()
-        {
-            ProcessIncorrectAnswer();
-        }
-
         private void ProcessIncorrectAnswer()
         {
             DisplayIncorrectAnswer();
@@ -314,12 +319,6 @@ namespace UglyTrivia
         private static void DisplayIncorrectAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-        }
-
-
-        public bool DoesGameContinue()
-        {
-            return _goldCoinsOfEachPlayer.All(x => x != 6);
         }
     }
 
