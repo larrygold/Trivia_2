@@ -1,8 +1,7 @@
+using NUnit.Framework;
 using System;
 using System.IO;
-using NUnit.Framework;
 using TriviaApp;
-using UglyTrivia;
 
 namespace Trivia.Tests
 {
@@ -12,7 +11,7 @@ namespace Trivia.Tests
         public void Setup()
         {
         }
-        
+
         [Test]
         public void GoldenMaster()
         {

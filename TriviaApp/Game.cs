@@ -1,19 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace UglyTrivia
 {
     public class Game
     {
-        private List<string> _players;
-        private int NumberPlayers => _players.Count;
+        private const int NumberQuestionsPerDeck = 50;
+
+        private const int NumberPositionsOnBoard = 11;
 
         private int _currentPlayerIndex;
-        private string CurrentPlayerName => _players[_currentPlayerIndex];
+
+        private List<List<string>> _decksOfQuestions;
+
+        private int[] _goldCoinsOfEachPlayer;
+
+
+        private bool[] _inPenaltyBox;
+
+        private bool _isGettingOutOfPenaltyBox;
+        private List<string> _players;
+
+        private List<string> _popQuestions;
 
         private int[] _positionOfEachPlayer;
+        private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
+
+        private Dictionary<List<string>, string> _questionCategoryDeckToName;
+        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
+
+        private List<string> _rockQuestions;
+
+        private List<string> _scienceQuestions;
+
+        private List<string> _sportsQuestions;
+
+        public Game()
+        {
+            InitializeAllFields();
+            PopulateAllDecksWithQuestions();
+        }
+
+        private int NumberPlayers => _players.Count;
+        private string CurrentPlayerName => _players[_currentPlayerIndex];
 
         private int CurrentPlayerPosition
         {
@@ -21,45 +51,16 @@ namespace UglyTrivia
             set => _positionOfEachPlayer[_currentPlayerIndex] = value;
         }
 
-        private int[] _goldCoinsOfEachPlayer;
         private int CurrentPlayerGoldCoins
         {
             get => _goldCoinsOfEachPlayer[_currentPlayerIndex];
             set => _goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
         }
 
-
-        private bool[] _inPenaltyBox;
         private bool CurrentPlayerIsInPenaltyBox
         {
             get => _inPenaltyBox[_currentPlayerIndex];
             set => _inPenaltyBox[_currentPlayerIndex] = value;
-        }
-
-        private bool _isGettingOutOfPenaltyBox;
-
-        private List<string> _popQuestions;
-
-        private List<string> _scienceQuestions;
-
-        private List<string> _sportsQuestions;
-
-        private List<string> _rockQuestions;
-
-        private List<List<string>> _decksOfQuestions;
-
-        private readonly int NumberQuestionsPerDeck = 50;
-
-        private Dictionary<List<string>, string> _questionCategoryDeckToName;
-        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
-        private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
-
-        private int _numberPositionsOnBoard;
-
-        public Game()
-        {
-            InitializeAllFields();
-            PopulateAllDecksWithQuestions();
         }
 
         public void AddPlayer(string playerName)
@@ -88,7 +89,6 @@ namespace UglyTrivia
             }
 
             PlayNormally(dieValue);
-
         }
 
         public void WasCorrectlyAnswered()
@@ -122,16 +122,16 @@ namespace UglyTrivia
             _scienceQuestions = new List<string>();
             _sportsQuestions = new List<string>();
             _rockQuestions = new List<string>();
-            _decksOfQuestions = new List<List<string>>()
+            _decksOfQuestions = new List<List<string>>
                 {_popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions};
-            _questionCategoryDeckToName = new Dictionary<List<string>, string>()
+            _questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
                 {_popQuestions, "Pop"},
                 {_scienceQuestions, "Science"},
                 {_sportsQuestions, "Sports"},
                 {_rockQuestions, "Rock"}
             };
-            _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>()
+            _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
                 {0, "Pop"},
                 {1, "Science"},
@@ -146,27 +146,20 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
-            _questionCategoryNameToDeck = new Dictionary<string, List<string>>()
+            _questionCategoryNameToDeck = new Dictionary<string, List<string>>
             {
                 {"Pop", _popQuestions},
                 {"Science", _scienceQuestions},
                 {"Sports", _sportsQuestions},
                 {"Rock", _rockQuestions}
             };
-
-
-            _numberPositionsOnBoard = 11;
         }
 
         private void PopulateAllDecksWithQuestions()
         {
             for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
-            {
                 foreach (var deck in _decksOfQuestions)
-                {
                     GenerateQuestion(deck, questionIndex);
-                }
-            }
         }
 
         private void GenerateQuestion(List<string> deck, int questionIndex)
@@ -218,8 +211,8 @@ namespace UglyTrivia
         private void UpdatePosition(int dieValue)
         {
             CurrentPlayerPosition += dieValue;
-            if (CurrentPlayerPosition > _numberPositionsOnBoard)
-                CurrentPlayerPosition -= _numberPositionsOnBoard + 1;
+            if (CurrentPlayerPosition > NumberPositionsOnBoard)
+                CurrentPlayerPosition -= NumberPositionsOnBoard + 1;
         }
 
         private void DisplayGetOutOfPenaltyBox()
@@ -321,5 +314,4 @@ namespace UglyTrivia
             Console.WriteLine("Question was incorrectly answered");
         }
     }
-
 }
