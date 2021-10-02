@@ -46,6 +46,7 @@ namespace UglyTrivia
         private readonly int NumberQuestionsPerDeck = 50;
 
         private Dictionary<List<string>, string> _deckToHeader;
+        private int _numberPositionsOnBoard;
 
 
         public Game()
@@ -73,6 +74,7 @@ namespace UglyTrivia
                 {_sportsQuestions, "Sports"},
                 {_rockQuestions, "Rock"}
             };
+            _numberPositionsOnBoard = 11;
         }
 
         private void PopulateAllDecksWithQuestions()
@@ -113,22 +115,17 @@ namespace UglyTrivia
                 {
                     GetOutOfPenaltyBox();
                     DisplayGetOutOfPenaltyBox();
-
-                    PlayNormally(dieValue);
                 }
                 else
                 {
-                    DisplayStayInPenaltyBox();
                     StayInPenaltyBox();
+                    DisplayStayInPenaltyBox();
+                    return;
                 }
-
             }
-            else
-            {
 
-                PlayNormally(dieValue);
+            PlayNormally(dieValue);
 
-            }
         }
 
         private void PlayNormally(int dieValue)
@@ -169,8 +166,8 @@ namespace UglyTrivia
         private void UpdatePosition(int dieValue)
         {
             CurrentPlayerPosition += dieValue;
-            if (CurrentPlayerPosition > 11)
-                CurrentPlayerPosition -= 12;
+            if (CurrentPlayerPosition > _numberPositionsOnBoard)
+                CurrentPlayerPosition -= _numberPositionsOnBoard + 1;
         }
 
         private void DisplayGetOutOfPenaltyBox()
