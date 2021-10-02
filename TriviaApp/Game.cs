@@ -7,24 +7,31 @@ namespace UglyTrivia
 {
     public class Game
     {
-        private List<string> _players;
+        private readonly List<string> _players;
 
-        private int[] _places = new int[6];
-        private int[] _purses = new int[6];
-        
-        private bool[] _inPenaltyBox = new bool[6];
+        private readonly int[] _places;
+        private readonly int[] _purses;
 
-        private List<string> _popQuestions = new List<string>();
-        private List<string> _scienceQuestions = new List<string>();
-        private List<string> _sportsQuestions = new List<string>();
-        private List<string> _rockQuestions = new List<string>();
+        private readonly bool[] _inPenaltyBox;
 
-        private int _currentPlayer = 0;
+        private readonly List<string> _popQuestions;
+        private readonly List<string> _scienceQuestions;
+        private readonly List<string> _sportsQuestions;
+        private readonly List<string> _rockQuestions;
+
+        private int _currentPlayer;
         private bool _isGettingOutOfPenaltyBox;
 
         public Game()
         {
             _players = new List<string>();
+            _places = new int[6];
+            _purses = new int[6];
+            _inPenaltyBox = new bool[6];
+            _popQuestions = new List<string>();
+            _scienceQuestions = new List<string>();
+            _sportsQuestions = new List<string>();
+            _rockQuestions = new List<string>();
 
             for (int i = 0; i < 50; i++)
             {
