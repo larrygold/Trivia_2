@@ -247,26 +247,15 @@ namespace UglyTrivia
                 if (_isGettingOutOfPenaltyBox)
                 {
                     DisplayCorrectAnswer();
-
-                    CurrentPlayerGoldCoins++;
-                    Console.WriteLine(CurrentPlayerName
-                            + " now has "
-                            + CurrentPlayerGoldCoins
-                            + " Gold Coins.");
-
-                    bool winner = DidPlayerWin();
-                    _currentPlayerIndex++;
-
-                    if (_currentPlayerIndex == NumberPlayers) 
-                        _currentPlayerIndex = 0;
-
-                    return winner;
+                    AddGoldCoin();
+                    DisplayCurrentPlayerGoldCoins();
+                    bool doesGameContinue = DoesGameContinue();
+                    MoveToNextPlayer();
+                    return doesGameContinue;
                 }
                 else
                 {
-                    _currentPlayerIndex++;
-                    if (_currentPlayerIndex == NumberPlayers) 
-                        _currentPlayerIndex = 0;
+                    MoveToNextPlayer();
                     return true;
                 }
             }
@@ -280,7 +269,7 @@ namespace UglyTrivia
                         + CurrentPlayerGoldCoins
                         + " Gold Coins.");
 
-                bool winner = DidPlayerWin();
+                bool winner = DoesGameContinue();
                 _currentPlayerIndex++;
 
                 if (_currentPlayerIndex == NumberPlayers) 
@@ -288,6 +277,26 @@ namespace UglyTrivia
 
                 return winner;
             }
+        }
+
+        private void MoveToNextPlayer()
+        {
+            _currentPlayerIndex++;
+            if (_currentPlayerIndex == NumberPlayers)
+                _currentPlayerIndex = 0;
+        }
+
+        private void DisplayCurrentPlayerGoldCoins()
+        {
+            Console.WriteLine(CurrentPlayerName
+                              + " now has "
+                              + CurrentPlayerGoldCoins
+                              + " Gold Coins.");
+        }
+
+        private void AddGoldCoin()
+        {
+            CurrentPlayerGoldCoins++;
         }
 
         private static void DisplayCorrectAnswer()
@@ -310,9 +319,9 @@ namespace UglyTrivia
         }
 
 
-        private bool DidPlayerWin()
+        private bool DoesGameContinue()
         {
-            return !(CurrentPlayerGoldCoins == 6);
+            return CurrentPlayerGoldCoins != 6;
         }
     }
 
