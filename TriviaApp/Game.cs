@@ -98,7 +98,9 @@ namespace UglyTrivia
             {
 
                 _places[_currentPlayer] = _places[_currentPlayer] + diceValue;
-                if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+
+                if (_places[_currentPlayer] > 11) 
+                    _places[_currentPlayer] = _places[_currentPlayer] - 12;
 
                 Console.WriteLine(_players[_currentPlayer]
                         + "'s new location is "
@@ -173,9 +175,6 @@ namespace UglyTrivia
                     if (_currentPlayer == _players.Count) _currentPlayer = 0;
                     return true;
                 }
-
-
-
             }
             else
             {
@@ -189,7 +188,9 @@ namespace UglyTrivia
 
                 bool winner = DidPlayerWin();
                 _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
+
+                if (_currentPlayer == _players.Count) 
+                    _currentPlayer = 0;
 
                 return winner;
             }
@@ -202,7 +203,10 @@ namespace UglyTrivia
             _inPenaltyBox[_currentPlayer] = true;
 
             _currentPlayer++;
-            if (_currentPlayer == _players.Count) _currentPlayer = 0;
+
+            if (_currentPlayer == _players.Count) 
+                _currentPlayer = 0;
+
             return true;
         }
 
