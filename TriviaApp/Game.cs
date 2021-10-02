@@ -9,9 +9,15 @@ namespace UglyTrivia
     {
         private List<string> _players;
         private int NumberPlayers => _players.Count;
-        private string CurrentPlayerName => _players[_currentPlayerIndex];
 
         private int _currentPlayerIndex;
+        private string CurrentPlayerName => _players[_currentPlayerIndex];
+
+        private bool CurrentPlayerIsInPenaltyBox
+        {
+            get => _inPenaltyBox[_currentPlayerIndex];
+            set => _inPenaltyBox[_currentPlayerIndex] = value;
+        }
 
         private int[] _positionOfEachPlayer;
         private int[] _goldCoinsOfEachPlayer;
@@ -87,18 +93,19 @@ namespace UglyTrivia
 
         public void Roll(int dieValue)
         {
-            Console.WriteLine(CurrentPlayerName + " is the current player");
-            Console.WriteLine("They have rolled a " + dieValue);
+            DisplayCurrentPlayerAndDieValue(dieValue);
 
-            if (_inPenaltyBox[_currentPlayerIndex])
+            if (CurrentPlayerIsInPenaltyBox)
             {
                 if (dieValue % 2 != 0)
                 {
                     _isGettingOutOfPenaltyBox = true;
-
                     Console.WriteLine(CurrentPlayerName + " is getting out of the penalty box");
-                    _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] + dieValue;
-                    if (_positionOfEachPlayer[_currentPlayerIndex] > 11) _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] - 12;
+
+                    _positionOfEachPlayer[_currentPlayerIndex] += dieValue;
+
+                    if (_positionOfEachPlayer[_currentPlayerIndex] > 11) 
+                        _positionOfEachPlayer[_currentPlayerIndex] -= 12;
 
                     Console.WriteLine(CurrentPlayerName
                             + "'s new location is "
@@ -127,7 +134,12 @@ namespace UglyTrivia
                 Console.WriteLine("The category is " + GetCurrentCategory());
                 AskQuestion();
             }
+        }
 
+        private void DisplayCurrentPlayerAndDieValue(int dieValue)
+        {
+            Console.WriteLine(CurrentPlayerName + " is the current player");
+            Console.WriteLine("They have rolled a " + dieValue);
         }
 
         private void AskQuestion()
@@ -171,7 +183,7 @@ namespace UglyTrivia
 
         public bool WasCorrectlyAnswered()
         {
-            if (_inPenaltyBox[_currentPlayerIndex])
+            if (CurrentPlayerIsInPenaltyBox)
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
@@ -219,7 +231,7 @@ namespace UglyTrivia
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
-            _inPenaltyBox[_currentPlayerIndex] = true;
+            CurrentPlayerIsInPenaltyBox = true;
 
             _currentPlayerIndex++;
 
