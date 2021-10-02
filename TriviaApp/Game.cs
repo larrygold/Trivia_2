@@ -45,7 +45,8 @@ namespace UglyTrivia
 
         private readonly int NumberQuestionsPerDeck = 50;
 
-        private Dictionary<List<string>, string> _deckToHeader;
+        private Dictionary<List<string>, string> _questionCategoryDeckToName;
+        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
         private int _numberPositionsOnBoard;
 
 
@@ -67,13 +68,21 @@ namespace UglyTrivia
             _rockQuestions = new List<string>();
             _decksOfQuestions = new List<List<string>>()
                 {_popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions};
-            _deckToHeader = new Dictionary<List<string>, string>()
+            _questionCategoryDeckToName = new Dictionary<List<string>, string>()
             {
                 {_popQuestions, "Pop"},
                 {_scienceQuestions, "Science"},
                 {_sportsQuestions, "Sports"},
                 {_rockQuestions, "Rock"}
+            };            
+            _questionCategoryNameToDeck = new Dictionary<string, List<string>>()
+            {
+                {"Pop", _popQuestions},
+                {"Science", _scienceQuestions},
+                {"Sports", _sportsQuestions},
+                {"Rock", _rockQuestions}
             };
+
             _numberPositionsOnBoard = 11;
         }
 
@@ -90,7 +99,7 @@ namespace UglyTrivia
 
         private void GenerateQuestion(List<string> deck, int questionIndex)
         {
-            deck.Add($"{_deckToHeader[deck]} Question " + questionIndex);
+            deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
         }
 
         public void AddPlayer(string playerName)
@@ -188,28 +197,18 @@ namespace UglyTrivia
 
         private void AskQuestion()
         {
-            switch (GetCurrentCategory())
-            {
-                case "Pop":
-                    Console.WriteLine(_popQuestions.First());
-                    _popQuestions.RemoveAt(0);
-                    break;
+            DisplayQuestion();
+            RemoveQuestionFromDeck();
+        }
 
-                case "Science":
-                    Console.WriteLine(_scienceQuestions.First());
-                    _scienceQuestions.RemoveAt(0);
-                    break;
+        private void RemoveQuestionFromDeck()
+        {
+            _questionCategoryNameToDeck[GetCurrentCategory()].RemoveAt(0);
+        }
 
-                case "Sports":
-                    Console.WriteLine(_sportsQuestions.First());
-                    _sportsQuestions.RemoveAt(0);
-                    break;
-
-                case "Rock":
-                    Console.WriteLine(_rockQuestions.First());
-                    _rockQuestions.RemoveAt(0);
-                    break;
-            }
+        private void DisplayQuestion()
+        {
+            Console.WriteLine(_questionCategoryNameToDeck[GetCurrentCategory()].First());
         }
 
 
