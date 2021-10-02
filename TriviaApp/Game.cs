@@ -13,26 +13,38 @@ namespace UglyTrivia
         private int _currentPlayerIndex;
         private string CurrentPlayerName => _players[_currentPlayerIndex];
 
+        private int[] _positionOfEachPlayer;
+
+        private int CurrentPlayerPosition
+        {
+            get => _positionOfEachPlayer[_currentPlayerIndex];
+            set => _positionOfEachPlayer[_currentPlayerIndex] = value;
+        }
+
+        private int[] _goldCoinsOfEachPlayer;
+
+        private bool[] _inPenaltyBox;
         private bool CurrentPlayerIsInPenaltyBox
         {
             get => _inPenaltyBox[_currentPlayerIndex];
             set => _inPenaltyBox[_currentPlayerIndex] = value;
         }
 
-        private int[] _positionOfEachPlayer;
-        private int[] _goldCoinsOfEachPlayer;
-
-        private bool[] _inPenaltyBox;
         private bool _isGettingOutOfPenaltyBox;
 
 
         private List<string> _popQuestions;
+
         private List<string> _scienceQuestions;
+
         private List<string> _sportsQuestions;
+
         private List<string> _rockQuestions;
+
         private List<List<string>> _decksOfQuestions;
 
         private readonly int NumberQuestionsPerDeck = 50;
+
         private Dictionary<List<string>, string> _deckToHeader;
 
 
@@ -99,17 +111,14 @@ namespace UglyTrivia
             {
                 if (dieValue % 2 != 0)
                 {
-                    _isGettingOutOfPenaltyBox = true;
-                    Console.WriteLine(CurrentPlayerName + " is getting out of the penalty box");
+                    GetOutOfPenaltyBox();
+                    DisplayGetOutOfPenaltyBox();
 
-                    _positionOfEachPlayer[_currentPlayerIndex] += dieValue;
-
-                    if (_positionOfEachPlayer[_currentPlayerIndex] > 11) 
-                        _positionOfEachPlayer[_currentPlayerIndex] -= 12;
-
+                    UpdatePosition(dieValue);
                     Console.WriteLine(CurrentPlayerName
-                            + "'s new location is "
-                            + _positionOfEachPlayer[_currentPlayerIndex]);
+                                      + "'s new location is "
+                                      + CurrentPlayerPosition);
+
                     Console.WriteLine("The category is " + GetCurrentCategory());
                     AskQuestion();
                 }
@@ -123,17 +132,34 @@ namespace UglyTrivia
             else
             {
 
-                _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] + dieValue;
+                CurrentPlayerPosition += dieValue;
 
-                if (_positionOfEachPlayer[_currentPlayerIndex] > 11) 
-                    _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] - 12;
+                if (CurrentPlayerPosition > 11) 
+                    CurrentPlayerPosition -= 12;
 
                 Console.WriteLine(CurrentPlayerName
                         + "'s new location is "
-                        + _positionOfEachPlayer[_currentPlayerIndex]);
+                        + CurrentPlayerPosition);
                 Console.WriteLine("The category is " + GetCurrentCategory());
                 AskQuestion();
             }
+        }
+
+        private void UpdatePosition(int dieValue)
+        {
+            CurrentPlayerPosition += dieValue;
+            if (CurrentPlayerPosition > 11)
+                CurrentPlayerPosition -= 12;
+        }
+
+        private void DisplayGetOutOfPenaltyBox()
+        {
+            Console.WriteLine(CurrentPlayerName + " is getting out of the penalty box");
+        }
+
+        private void GetOutOfPenaltyBox()
+        {
+            _isGettingOutOfPenaltyBox = true;
         }
 
         private void DisplayCurrentPlayerAndDieValue(int dieValue)
@@ -169,15 +195,15 @@ namespace UglyTrivia
 
         private string GetCurrentCategory()
         {
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 0) return "Pop";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 4) return "Pop";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 8) return "Pop";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 1) return "Science";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 5) return "Science";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 9) return "Science";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 2) return "Sports";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 6) return "Sports";
-            if (_positionOfEachPlayer[_currentPlayerIndex] == 10) return "Sports";
+            if (CurrentPlayerPosition == 0) return "Pop";
+            if (CurrentPlayerPosition == 4) return "Pop";
+            if (CurrentPlayerPosition == 8) return "Pop";
+            if (CurrentPlayerPosition == 1) return "Science";
+            if (CurrentPlayerPosition == 5) return "Science";
+            if (CurrentPlayerPosition == 9) return "Science";
+            if (CurrentPlayerPosition == 2) return "Sports";
+            if (CurrentPlayerPosition == 6) return "Sports";
+            if (CurrentPlayerPosition == 10) return "Sports";
             return "Rock";
         }
 
