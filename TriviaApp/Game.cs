@@ -72,13 +72,16 @@ namespace UglyTrivia
             deck.Add($"{_deckToHeader[deck]} Question " + questionIndex);
         }
 
-        public bool AddPlayer(string playerName)
+        public void AddPlayer(string playerName)
         {
             _players.Add(playerName);
+            DisplayPlayerAdded(playerName);
+        }
 
+        private void DisplayPlayerAdded(string playerName)
+        {
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + NumberPlayers);
-            return true;
         }
 
         public void Roll(int diceValue)
