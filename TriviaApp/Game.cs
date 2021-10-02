@@ -115,17 +115,15 @@ namespace UglyTrivia
                     DisplayGetOutOfPenaltyBox();
 
                     UpdatePosition(dieValue);
-                    Console.WriteLine(CurrentPlayerName
-                                      + "'s new location is "
-                                      + CurrentPlayerPosition);
+                    DisplayUpdatedPosition();
 
-                    Console.WriteLine("The category is " + GetCurrentCategory());
+                    DisplayCurrentCategory();
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(CurrentPlayerName + " is not getting out of the penalty box");
-                    _isGettingOutOfPenaltyBox = false;
+                    DisplayStayInPenaltyBox();
+                    StayInPenaltyBox();
                 }
 
             }
@@ -143,6 +141,28 @@ namespace UglyTrivia
                 Console.WriteLine("The category is " + GetCurrentCategory());
                 AskQuestion();
             }
+        }
+
+        private void StayInPenaltyBox()
+        {
+            _isGettingOutOfPenaltyBox = false;
+        }
+
+        private void DisplayStayInPenaltyBox()
+        {
+            Console.WriteLine(CurrentPlayerName + " is not getting out of the penalty box");
+        }
+
+        private void DisplayCurrentCategory()
+        {
+            Console.WriteLine("The category is " + GetCurrentCategory());
+        }
+
+        private void DisplayUpdatedPosition()
+        {
+            Console.WriteLine(CurrentPlayerName
+                              + "'s new location is "
+                              + CurrentPlayerPosition);
         }
 
         private void UpdatePosition(int dieValue)
