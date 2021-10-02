@@ -47,8 +47,9 @@ namespace UglyTrivia
 
         private Dictionary<List<string>, string> _questionCategoryDeckToName;
         private Dictionary<string, List<string>> _questionCategoryNameToDeck;
-        private int _numberPositionsOnBoard;
+        private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
+        private int _numberPositionsOnBoard;
 
         public Game()
         {
@@ -74,7 +75,22 @@ namespace UglyTrivia
                 {_scienceQuestions, "Science"},
                 {_sportsQuestions, "Sports"},
                 {_rockQuestions, "Rock"}
-            };            
+            };
+            _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>()
+            {
+                {0, "Pop"},
+                {1, "Science"},
+                {2, "Sports"},
+                {3, "Rock"},
+                {4, "Pop"},
+                {5, "Science"},
+                {6, "Sports"},
+                {7, "Rock"},
+                {8, "Pop"},
+                {9, "Science"},
+                {10, "Sports"},
+                {11, "Rock"}
+            };
             _questionCategoryNameToDeck = new Dictionary<string, List<string>>()
             {
                 {"Pop", _popQuestions},
@@ -82,6 +98,7 @@ namespace UglyTrivia
                 {"Sports", _sportsQuestions},
                 {"Rock", _rockQuestions}
             };
+
 
             _numberPositionsOnBoard = 11;
         }
@@ -214,16 +231,7 @@ namespace UglyTrivia
 
         private string GetCurrentCategory()
         {
-            if (CurrentPlayerPosition == 0) return "Pop";
-            if (CurrentPlayerPosition == 4) return "Pop";
-            if (CurrentPlayerPosition == 8) return "Pop";
-            if (CurrentPlayerPosition == 1) return "Science";
-            if (CurrentPlayerPosition == 5) return "Science";
-            if (CurrentPlayerPosition == 9) return "Science";
-            if (CurrentPlayerPosition == 2) return "Sports";
-            if (CurrentPlayerPosition == 6) return "Sports";
-            if (CurrentPlayerPosition == 10) return "Sports";
-            return "Rock";
+            return _positionOnBoardToQuestionCategoryName[CurrentPlayerPosition];
         }
 
         public bool WasCorrectlyAnswered()
