@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using UglyTrivia;
 
-namespace Trivia
+namespace TriviaApp
 {
-    public class GameRunner
+    public class Program
     {
-
         private static bool notAWinner;
 
         public static void Main(String[] args)
@@ -40,12 +35,7 @@ namespace Trivia
 
             } while (notAWinner);
 
-            Console.ReadLine();
 
         }
-
-
     }
-
 }
-
