@@ -177,7 +177,7 @@ namespace UglyTrivia
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     _goldCoinsOfEachPlayer[_currentPlayerIndex]++;
-                    Console.WriteLine(_players[_currentPlayerIndex]
+                    Console.WriteLine(CurrentPlayerName
                             + " now has "
                             + _goldCoinsOfEachPlayer[_currentPlayerIndex]
                             + " Gold Coins.");
@@ -200,7 +200,7 @@ namespace UglyTrivia
 
                 Console.WriteLine("Answer was corrent!!!!");
                 _goldCoinsOfEachPlayer[_currentPlayerIndex]++;
-                Console.WriteLine(_players[_currentPlayerIndex]
+                Console.WriteLine(CurrentPlayerName
                         + " now has "
                         + _goldCoinsOfEachPlayer[_currentPlayerIndex]
                         + " Gold Coins.");
@@ -218,7 +218,7 @@ namespace UglyTrivia
         public bool WasIncorrectlyAnswered()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(_players[_currentPlayerIndex] + " was sent to the penalty box");
+            Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayerIndex] = true;
 
             _currentPlayerIndex++;
