@@ -22,6 +22,7 @@ namespace UglyTrivia
         private readonly List<string> _sportsQuestions;
         private readonly List<string> _rockQuestions;
 
+        private readonly int NumberQuestionsPerDeck = 50;
 
 
         public Game()
@@ -35,13 +36,18 @@ namespace UglyTrivia
             _sportsQuestions = new List<string>();
             _rockQuestions = new List<string>();
 
-            for (int i = 0; i < 50; i++)
+            for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
             {
-                _popQuestions.Add("Pop Question " + i);
-                _scienceQuestions.Add(("Science Question " + i));
-                _sportsQuestions.Add(("Sports Question " + i));
-                _rockQuestions.Add(CreateRockQuestion(i));
+                GenerateQuestion(_popQuestions, "Pop Question ", questionIndex);
+                GenerateQuestion(_scienceQuestions, "Science Question ", questionIndex);
+                GenerateQuestion(_sportsQuestions, "Sports Question ", questionIndex);
+                GenerateQuestion(_rockQuestions, "Rock Question ", questionIndex);
             }
+        }
+
+        private static void GenerateQuestion(List<string> deck, string header, int questionIndex)
+        {
+            deck.Add(header + questionIndex);
         }
 
         public string CreateRockQuestion(int questionIndex)
