@@ -259,7 +259,7 @@ namespace UglyTrivia
                 }
             }
 
-            Console.WriteLine("Answer was corrent!!!!");
+            DisplayCorrectAnswer();
             AddGoldCoin();
             DisplayCurrentPlayerGoldCoins();
             MoveToNextPlayer();
