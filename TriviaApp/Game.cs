@@ -75,9 +75,6 @@ namespace UglyTrivia
         public bool AddPlayer(string playerName)
         {
             _players.Add(playerName);
-            _positionOfEachPlayer[NumberPlayers] = 0;
-            _goldCoinsOfEachPlayer[NumberPlayers] = 0;
-            _inPenaltyBox[NumberPlayers] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + _players.Count);
