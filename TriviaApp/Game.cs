@@ -77,7 +77,7 @@ namespace UglyTrivia
             _players.Add(playerName);
 
             Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + _players.Count);
+            Console.WriteLine("They are player number " + NumberPlayers);
             return true;
         }
 
@@ -180,14 +180,14 @@ namespace UglyTrivia
 
                     bool winner = DidPlayerWin();
                     _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                    if (_currentPlayer == NumberPlayers) _currentPlayer = 0;
 
                     return winner;
                 }
                 else
                 {
                     _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                    if (_currentPlayer == NumberPlayers) _currentPlayer = 0;
                     return true;
                 }
             }
@@ -204,7 +204,7 @@ namespace UglyTrivia
                 bool winner = DidPlayerWin();
                 _currentPlayer++;
 
-                if (_currentPlayer == _players.Count) 
+                if (_currentPlayer == NumberPlayers) 
                     _currentPlayer = 0;
 
                 return winner;
@@ -219,7 +219,7 @@ namespace UglyTrivia
 
             _currentPlayer++;
 
-            if (_currentPlayer == _players.Count) 
+            if (_currentPlayer == NumberPlayers) 
                 _currentPlayer = 0;
 
             return true;
