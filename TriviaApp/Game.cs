@@ -9,8 +9,9 @@ namespace UglyTrivia
     {
         private List<string> _players;
         private int NumberPlayers => _players.Count;
+        private string CurrentPlayerName => _players[_currentPlayerIndex];
 
-        private int _currentPlayer;
+        private int _currentPlayerIndex;
 
         private int[] _positionOfEachPlayer;
         private int[] _goldCoinsOfEachPlayer;
@@ -84,30 +85,30 @@ namespace UglyTrivia
             Console.WriteLine("They are player number " + NumberPlayers);
         }
 
-        public void Roll(int diceValue)
+        public void Roll(int dieValue)
         {
-            Console.WriteLine(_players[_currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + diceValue);
+            Console.WriteLine(CurrentPlayerName + " is the current player");
+            Console.WriteLine("They have rolled a " + dieValue);
 
-            if (_inPenaltyBox[_currentPlayer])
+            if (_inPenaltyBox[_currentPlayerIndex])
             {
-                if (diceValue % 2 != 0)
+                if (dieValue % 2 != 0)
                 {
                     _isGettingOutOfPenaltyBox = true;
 
-                    Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    _positionOfEachPlayer[_currentPlayer] = _positionOfEachPlayer[_currentPlayer] + diceValue;
-                    if (_positionOfEachPlayer[_currentPlayer] > 11) _positionOfEachPlayer[_currentPlayer] = _positionOfEachPlayer[_currentPlayer] - 12;
+                    Console.WriteLine(CurrentPlayerName + " is getting out of the penalty box");
+                    _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] + dieValue;
+                    if (_positionOfEachPlayer[_currentPlayerIndex] > 11) _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] - 12;
 
-                    Console.WriteLine(_players[_currentPlayer]
+                    Console.WriteLine(CurrentPlayerName
                             + "'s new location is "
-                            + _positionOfEachPlayer[_currentPlayer]);
+                            + _positionOfEachPlayer[_currentPlayerIndex]);
                     Console.WriteLine("The category is " + GetCurrentCategory());
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
+                    Console.WriteLine(CurrentPlayerName + " is not getting out of the penalty box");
                     _isGettingOutOfPenaltyBox = false;
                 }
 
@@ -115,14 +116,14 @@ namespace UglyTrivia
             else
             {
 
-                _positionOfEachPlayer[_currentPlayer] = _positionOfEachPlayer[_currentPlayer] + diceValue;
+                _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] + dieValue;
 
-                if (_positionOfEachPlayer[_currentPlayer] > 11) 
-                    _positionOfEachPlayer[_currentPlayer] = _positionOfEachPlayer[_currentPlayer] - 12;
+                if (_positionOfEachPlayer[_currentPlayerIndex] > 11) 
+                    _positionOfEachPlayer[_currentPlayerIndex] = _positionOfEachPlayer[_currentPlayerIndex] - 12;
 
-                Console.WriteLine(_players[_currentPlayer]
+                Console.WriteLine(CurrentPlayerName
                         + "'s new location is "
-                        + _positionOfEachPlayer[_currentPlayer]);
+                        + _positionOfEachPlayer[_currentPlayerIndex]);
                 Console.WriteLine("The category is " + GetCurrentCategory());
                 AskQuestion();
             }
@@ -156,41 +157,41 @@ namespace UglyTrivia
 
         private string GetCurrentCategory()
         {
-            if (_positionOfEachPlayer[_currentPlayer] == 0) return "Pop";
-            if (_positionOfEachPlayer[_currentPlayer] == 4) return "Pop";
-            if (_positionOfEachPlayer[_currentPlayer] == 8) return "Pop";
-            if (_positionOfEachPlayer[_currentPlayer] == 1) return "Science";
-            if (_positionOfEachPlayer[_currentPlayer] == 5) return "Science";
-            if (_positionOfEachPlayer[_currentPlayer] == 9) return "Science";
-            if (_positionOfEachPlayer[_currentPlayer] == 2) return "Sports";
-            if (_positionOfEachPlayer[_currentPlayer] == 6) return "Sports";
-            if (_positionOfEachPlayer[_currentPlayer] == 10) return "Sports";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 0) return "Pop";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 4) return "Pop";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 8) return "Pop";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 1) return "Science";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 5) return "Science";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 9) return "Science";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 2) return "Sports";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 6) return "Sports";
+            if (_positionOfEachPlayer[_currentPlayerIndex] == 10) return "Sports";
             return "Rock";
         }
 
         public bool WasCorrectlyAnswered()
         {
-            if (_inPenaltyBox[_currentPlayer])
+            if (_inPenaltyBox[_currentPlayerIndex])
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    _goldCoinsOfEachPlayer[_currentPlayer]++;
-                    Console.WriteLine(_players[_currentPlayer]
+                    _goldCoinsOfEachPlayer[_currentPlayerIndex]++;
+                    Console.WriteLine(_players[_currentPlayerIndex]
                             + " now has "
-                            + _goldCoinsOfEachPlayer[_currentPlayer]
+                            + _goldCoinsOfEachPlayer[_currentPlayerIndex]
                             + " Gold Coins.");
 
                     bool winner = DidPlayerWin();
-                    _currentPlayer++;
-                    if (_currentPlayer == NumberPlayers) _currentPlayer = 0;
+                    _currentPlayerIndex++;
+                    if (_currentPlayerIndex == NumberPlayers) _currentPlayerIndex = 0;
 
                     return winner;
                 }
                 else
                 {
-                    _currentPlayer++;
-                    if (_currentPlayer == NumberPlayers) _currentPlayer = 0;
+                    _currentPlayerIndex++;
+                    if (_currentPlayerIndex == NumberPlayers) _currentPlayerIndex = 0;
                     return true;
                 }
             }
@@ -198,17 +199,17 @@ namespace UglyTrivia
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                _goldCoinsOfEachPlayer[_currentPlayer]++;
-                Console.WriteLine(_players[_currentPlayer]
+                _goldCoinsOfEachPlayer[_currentPlayerIndex]++;
+                Console.WriteLine(_players[_currentPlayerIndex]
                         + " now has "
-                        + _goldCoinsOfEachPlayer[_currentPlayer]
+                        + _goldCoinsOfEachPlayer[_currentPlayerIndex]
                         + " Gold Coins.");
 
                 bool winner = DidPlayerWin();
-                _currentPlayer++;
+                _currentPlayerIndex++;
 
-                if (_currentPlayer == NumberPlayers) 
-                    _currentPlayer = 0;
+                if (_currentPlayerIndex == NumberPlayers) 
+                    _currentPlayerIndex = 0;
 
                 return winner;
             }
@@ -217,13 +218,13 @@ namespace UglyTrivia
         public bool WasIncorrectlyAnswered()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
-            _inPenaltyBox[_currentPlayer] = true;
+            Console.WriteLine(_players[_currentPlayerIndex] + " was sent to the penalty box");
+            _inPenaltyBox[_currentPlayerIndex] = true;
 
-            _currentPlayer++;
+            _currentPlayerIndex++;
 
-            if (_currentPlayer == NumberPlayers) 
-                _currentPlayer = 0;
+            if (_currentPlayerIndex == NumberPlayers) 
+                _currentPlayerIndex = 0;
 
             return true;
         }
@@ -231,7 +232,7 @@ namespace UglyTrivia
 
         private bool DidPlayerWin()
         {
-            return !(_goldCoinsOfEachPlayer[_currentPlayer] == 6);
+            return !(_goldCoinsOfEachPlayer[_currentPlayerIndex] == 6);
         }
     }
 
