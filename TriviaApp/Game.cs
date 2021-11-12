@@ -26,11 +26,9 @@ namespace UglyTrivia
 
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
-        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
-
 
         public Game()
-        {
+        {   
             InitializeAllFields();
             _questions.PopulateAllDecksWithQuestions();
         }
@@ -127,13 +125,6 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
-            _questionCategoryNameToDeck = new Dictionary<string, List<string>>
-            {
-                {"Pop", _questions._popQuestions},
-                {"Science", _questions._scienceQuestions},
-                {"Sports", _questions._sportsQuestions},
-                {"Rock", _questions._rockQuestions}
-            };
         }
 
         private void DisplayPlayerAdded(string playerName)
@@ -208,12 +199,12 @@ namespace UglyTrivia
 
         private void RemoveQuestionFromDeck()
         {
-            _questionCategoryNameToDeck[GetCurrentCategory()].RemoveAt(0);
+            _questions._questionCategoryNameToDeck[GetCurrentCategory()].RemoveAt(0);
         }
 
         private void DisplayQuestion()
         {
-            Console.WriteLine(_questionCategoryNameToDeck[GetCurrentCategory()].First());
+            Console.WriteLine(_questions._questionCategoryNameToDeck[GetCurrentCategory()].First());
         }
 
 
