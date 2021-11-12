@@ -36,5 +36,13 @@ namespace TriviaApp
             deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
         }
 
+        public void PopulateAllDecksWithQuestions()
+        {
+            for (var questionIndex = 0; questionIndex < Questions.NumberQuestionsPerDeck; questionIndex++)
+                foreach (var deck in _decksOfQuestions)
+                    GenerateQuestion(deck, questionIndex);
+        }
+
+
     }
 }
