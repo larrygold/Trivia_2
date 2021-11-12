@@ -5,14 +5,14 @@ namespace TriviaApp
 {
     public class Questions
     {
-        public List<string> _popQuestions;
-        public List<string> _scienceQuestions;
-        public List<string> _rockQuestions;
-        public List<string> _sportsQuestions;
-        public List<List<string>> _decksOfQuestions;
         public const int NumberQuestionsPerDeck = 50;
-        public Dictionary<List<string>, string> _questionCategoryDeckToName;
-        public Dictionary<string, List<string>> _questionCategoryNameToDeck;
+        private readonly List<List<string>> _decksOfQuestions;
+        private readonly List<string> _popQuestions;
+        private readonly Dictionary<List<string>, string> _questionCategoryDeckToName;
+        private readonly Dictionary<string, List<string>> _questionCategoryNameToDeck;
+        private readonly List<string> _rockQuestions;
+        private readonly List<string> _scienceQuestions;
+        private readonly List<string> _sportsQuestions;
 
         public Questions()
         {
@@ -21,8 +21,10 @@ namespace TriviaApp
             _rockQuestions = new List<string>();
             _sportsQuestions = new List<string>();
             _decksOfQuestions = new List<List<string>>
-            {_popQuestions, _scienceQuestions, _sportsQuestions,
-                _rockQuestions};
+            {
+                _popQuestions, _scienceQuestions, _sportsQuestions,
+                _rockQuestions
+            };
             _questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
                 {_popQuestions, "Pop"},
@@ -40,18 +42,6 @@ namespace TriviaApp
             PopulateAllDecksWithQuestions();
         }
 
-        public void GenerateQuestion(List<string> deck, int questionIndex)
-        {
-            deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
-        }
-
-        public void PopulateAllDecksWithQuestions()
-        {
-            for (var questionIndex = 0; questionIndex < Questions.NumberQuestionsPerDeck; questionIndex++)
-                foreach (var deck in _decksOfQuestions)
-                    GenerateQuestion(deck, questionIndex);
-        }
-
         public string GetNextQuestion(string currentCategory)
         {
             var questionToDisplay = _questionCategoryNameToDeck[currentCategory].First();
@@ -59,7 +49,19 @@ namespace TriviaApp
             return questionToDisplay;
         }
 
-        public void RemoveQuestionFromDeck(string currentCategory)
+        private void PopulateAllDecksWithQuestions()
+        {
+            for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
+                foreach (var deck in _decksOfQuestions)
+                    GenerateQuestion(deck, questionIndex);
+        }
+
+        private void GenerateQuestion(List<string> deck, int questionIndex)
+        {
+            deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
+        }
+
+        private void RemoveQuestionFromDeck(string currentCategory)
         {
             _questionCategoryNameToDeck[currentCategory].RemoveAt(0);
         }
