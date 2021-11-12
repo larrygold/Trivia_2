@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TriviaApp;
 
 namespace UglyTrivia
 {
@@ -24,13 +25,11 @@ namespace UglyTrivia
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
 
+        private Questions _questions;
+
         private List<List<string>> _decksOfQuestions;
 
-        private List<string> _popQuestions;
-
         private List<string> _rockQuestions;
-
-        private List<string> _scienceQuestions;
 
         private List<string> _sportsQuestions;
 
@@ -119,20 +118,19 @@ namespace UglyTrivia
 
         private void InitializeAllFields()
         {
+            _questions = new Questions();
             _players = new List<string>();
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
-            _popQuestions = new List<string>();
-            _scienceQuestions = new List<string>();
             _sportsQuestions = new List<string>();
             _rockQuestions = new List<string>();
             _decksOfQuestions = new List<List<string>>
-                {_popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions};
+                {_questions._popQuestions, _questions._scienceQuestions, _sportsQuestions, _rockQuestions};
             _questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
-                {_popQuestions, "Pop"},
-                {_scienceQuestions, "Science"},
+                {_questions._popQuestions, "Pop"},
+                {_questions._scienceQuestions, "Science"},
                 {_sportsQuestions, "Sports"},
                 {_rockQuestions, "Rock"}
             };
@@ -153,8 +151,8 @@ namespace UglyTrivia
             };
             _questionCategoryNameToDeck = new Dictionary<string, List<string>>
             {
-                {"Pop", _popQuestions},
-                {"Science", _scienceQuestions},
+                {"Pop", _questions._popQuestions},
+                {"Science", _questions._scienceQuestions},
                 {"Sports", _sportsQuestions},
                 {"Rock", _rockQuestions}
             };
