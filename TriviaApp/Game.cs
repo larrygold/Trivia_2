@@ -124,12 +124,10 @@ namespace UglyTrivia
 
         private void UpdatePosition(int dieValue)
         {
-            int val = _players.GetPlace(_currentPlayerIndex) + dieValue;
-            _players.AddToPlace(_currentPlayerIndex, val - _players.GetPlace(_currentPlayerIndex));
+            _players.AddToPlace(_currentPlayerIndex,dieValue);
             if (_players.GetPlace(_currentPlayerIndex) > NumberPositionsOnBoard)
             {
-                int val1 = _players.GetPlace(_currentPlayerIndex) - (NumberPositionsOnBoard + 1);
-                _players.AddToPlace(_currentPlayerIndex, val1 - _players.GetPlace(_currentPlayerIndex));
+                _players.AddToPlace(_currentPlayerIndex, - (NumberPositionsOnBoard + 1));
             }
         }
 
