@@ -32,7 +32,7 @@ namespace UglyTrivia
         public Game()
         {
             InitializeAllFields();
-            PopulateAllDecksWithQuestions();
+            _questions.PopulateAllDecksWithQuestions();
         }
 
         private int NumberPlayers => _players.Count;
@@ -134,13 +134,6 @@ namespace UglyTrivia
                 {"Sports", _questions._sportsQuestions},
                 {"Rock", _questions._rockQuestions}
             };
-        }
-
-        private void PopulateAllDecksWithQuestions()
-        {
-            for (var questionIndex = 0; questionIndex < Questions.NumberQuestionsPerDeck; questionIndex++)
-                foreach (var deck in _questions._decksOfQuestions)
-                    _questions.GenerateQuestion(deck, questionIndex);
         }
 
         private void DisplayPlayerAdded(string playerName)
