@@ -193,20 +193,8 @@ namespace UglyTrivia
 
         private void AskQuestion()
         {
-            DisplayQuestion();
-            RemoveQuestionFromDeck();
+            Console.WriteLine(_questions.GetNextQuestion(GetCurrentCategory()));
         }
-
-        private void RemoveQuestionFromDeck()
-        {
-            _questions.RemoveQuestionFromDeck(GetCurrentCategory());
-        }
-
-        private void DisplayQuestion()
-        {
-            _questions.DisplayQuestion(GetCurrentCategory());
-        }
-
 
         private string GetCurrentCategory()
         {
