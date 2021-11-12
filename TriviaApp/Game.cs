@@ -30,8 +30,8 @@ namespace UglyTrivia
 
         private int CurrentPlayerPosition
         {
-            get => _players._positionOfEachPlayer[_currentPlayerIndex];
-            set => _players._positionOfEachPlayer[_currentPlayerIndex] = value;
+            get => _players.GetPlace(_currentPlayerIndex);
+            set => _players.AddToPlace(_currentPlayerIndex, value - CurrentPlayerPosition);
         }
 
         private int CurrentPlayerGoldCoins
