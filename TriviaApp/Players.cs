@@ -11,6 +11,7 @@ namespace TriviaApp
         private int[] _positionOfEachPlayer;
         private int[] _goldCoinsOfEachPlayer;
         private bool[] _isInPenaltyBoxForEachPlayer;
+        private int _currentPlayerIndex;
 
         public int NumberPlayers => _players.Count;
 
@@ -20,6 +21,26 @@ namespace TriviaApp
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
+        }
+
+        public string GetCurrentPlayerName()
+        {
+            return _players[_currentPlayerIndex];
+        }
+
+        public int GetCurrentPlayerIndex()
+        {
+            return _currentPlayerIndex;
+        }
+
+        public void MoveToNextPlayer()
+        {
+            _currentPlayerIndex++;
+        }
+
+        public void MoveToFirstPlayer()
+        {
+            _currentPlayerIndex = 0;
         }
 
         public void Add(string playerName)

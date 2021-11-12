@@ -8,7 +8,6 @@ namespace UglyTrivia
     public class Game
     {
         private Players _players;
-        private int _currentPlayerIndex;
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
         private const int NumberPositionsOnBoard = 11;
@@ -22,13 +21,13 @@ namespace UglyTrivia
             InitializeAllFields();
         }
 
-        private string CurrentPlayerName => _players._players[_currentPlayerIndex];
+        private string CurrentPlayerName => _players.GetCurrentPlayerName();
 
         public void Roll(int dieValue)
         {
             DisplayCurrentPlayerAndDieValue(dieValue);
 
-            if (_players.IsInPenaltyBox(_currentPlayerIndex))
+            if (_players.IsInPenaltyBox(_players.GetCurrentPlayerIndex()))
             {
                 if (MustGetOutOfPenaltyBox(dieValue))
                 {
@@ -119,15 +118,15 @@ namespace UglyTrivia
         {
             Console.WriteLine(CurrentPlayerName
                               + "'s new location is "
-                              + _players.GetPlace(_currentPlayerIndex));
+                              + _players.GetPlace(_players.GetCurrentPlayerIndex()));
         }
 
         private void UpdatePosition(int dieValue)
         {
-            _players.AddToPlace(_currentPlayerIndex,dieValue);
-            if (_players.GetPlace(_currentPlayerIndex) > NumberPositionsOnBoard)
+            _players.AddToPlace(_players.GetCurrentPlayerIndex(),dieValue);
+            if (_players.GetPlace(_players.GetCurrentPlayerIndex()) > NumberPositionsOnBoard)
             {
-                _players.AddToPlace(_currentPlayerIndex, - (NumberPositionsOnBoard + 1));
+                _players.AddToPlace(_players.GetCurrentPlayerIndex(), - (NumberPositionsOnBoard + 1));
             }
         }
 
@@ -154,7 +153,7 @@ namespace UglyTrivia
 
         private string GetCurrentCategory()
         {
-            return _positionOnBoardToQuestionCategoryName[_players.GetPlace(_currentPlayerIndex)];
+            return _positionOnBoardToQuestionCategoryName[_players.GetPlace(_players.GetCurrentPlayerIndex())];
         }
 
         private void ProcessIncorrectAnswer()
@@ -167,7 +166,7 @@ namespace UglyTrivia
 
         private bool CurrentPlayerStaysInPenaltyBox()
         {
-            return _players.IsInPenaltyBox(_currentPlayerIndex) && !_isCurrentPlayerGettingOutOfPenaltyBox;
+            return _players.IsInPenaltyBox(_players.GetCurrentPlayerIndex()) && !_isCurrentPlayerGettingOutOfPenaltyBox;
         }
 
         private void ProcessCorrectAnswer()
@@ -180,22 +179,22 @@ namespace UglyTrivia
 
         private void MoveToNextPlayer()
         {
-            _currentPlayerIndex++;
-            if (_currentPlayerIndex == _players.NumberPlayers)
-                _currentPlayerIndex = 0;
+            _players.MoveToNextPlayer();
+            if (_players.GetCurrentPlayerIndex() == _players.NumberPlayers)
+                _players.MoveToFirstPlayer();
         }
 
         private void DisplayCurrentPlayerGoldCoins()
         {
             Console.WriteLine(CurrentPlayerName
                               + " now has "
-                              + _players.GetGoldCoins(_currentPlayerIndex)
+                              + _players.GetGoldCoins(_players.GetCurrentPlayerIndex())
                               + " Gold Coins.");
         }
 
         private void AddGoldCoin()
         {
-            _players.AddToPurse(_currentPlayerIndex, 1);
+            _players.AddToPurse(_players.GetCurrentPlayerIndex(), 1);
         }
 
         private static void DisplayCorrectAnswer()
@@ -205,7 +204,7 @@ namespace UglyTrivia
 
         private void SendToPenaltyBox()
         {
-            _players.MoveToPenaltyBox(_currentPlayerIndex);
+            _players.MoveToPenaltyBox(_players.GetCurrentPlayerIndex());
         }
 
         private void DisplaySentToPenaltyBox()
