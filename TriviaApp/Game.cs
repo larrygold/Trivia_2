@@ -29,10 +29,6 @@ namespace UglyTrivia
 
         private List<List<string>> _decksOfQuestions;
 
-        private List<string> _rockQuestions;
-
-        private List<string> _sportsQuestions;
-
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
         private Dictionary<List<string>, string> _questionCategoryDeckToName;
@@ -123,16 +119,15 @@ namespace UglyTrivia
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
-            _sportsQuestions = new List<string>();
-            _rockQuestions = new List<string>();
             _decksOfQuestions = new List<List<string>>
-                {_questions._popQuestions, _questions._scienceQuestions, _sportsQuestions, _rockQuestions};
+                {_questions._popQuestions, _questions._scienceQuestions, _questions._sportsQuestions,
+                    _questions._rockQuestions};
             _questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
                 {_questions._popQuestions, "Pop"},
                 {_questions._scienceQuestions, "Science"},
-                {_sportsQuestions, "Sports"},
-                {_rockQuestions, "Rock"}
+                {_questions._sportsQuestions, "Sports"},
+                {_questions._rockQuestions, "Rock"}
             };
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
@@ -153,8 +148,8 @@ namespace UglyTrivia
             {
                 {"Pop", _questions._popQuestions},
                 {"Science", _questions._scienceQuestions},
-                {"Sports", _sportsQuestions},
-                {"Rock", _rockQuestions}
+                {"Sports", _questions._sportsQuestions},
+                {"Rock", _questions._rockQuestions}
             };
         }
 
