@@ -13,8 +13,6 @@ namespace UglyTrivia
 
         private int _currentPlayerIndex;
 
-        private bool[] _isInPenaltyBoxForEachPlayer;
-        
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
         private Questions _questions;
@@ -44,8 +42,8 @@ namespace UglyTrivia
 
         private bool CurrentPlayerIsInPenaltyBox
         {
-            get => _isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
-            set => _isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
+            get => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
+            set => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
         }
 
         public void AddPlayer(string playerName)
@@ -100,7 +98,6 @@ namespace UglyTrivia
         private void InitializeAllFields()
         {
             _questions = new Questions();
-            _isInPenaltyBoxForEachPlayer = new bool[6];
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
                 {0, "Pop"},

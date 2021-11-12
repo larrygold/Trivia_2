@@ -9,12 +9,14 @@ namespace TriviaApp
         public List<string> _players;
         public int[] _positionOfEachPlayer;
         public int[] _goldCoinsOfEachPlayer;
+        public bool[] _isInPenaltyBoxForEachPlayer;
 
         public Players()
         {
             _players = new List<string>();
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
+            _isInPenaltyBoxForEachPlayer = new bool[6];
         }
     }
 }
