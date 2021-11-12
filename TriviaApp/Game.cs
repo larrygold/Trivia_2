@@ -74,7 +74,7 @@ namespace UglyTrivia
 
         public bool DoesGameContinue()
         {
-            return _players._goldCoinsOfEachPlayer.All(x => x != 6);
+            return _players.DoesAPlayerHave(6);
         }
 
         private void InitializeAllFields()

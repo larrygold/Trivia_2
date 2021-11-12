@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace TriviaApp
@@ -45,6 +46,11 @@ namespace TriviaApp
         public void AddToPurse(int playerIndex, int amount)
         {
             _goldCoinsOfEachPlayer[playerIndex] += amount;
+        }
+
+        public bool DoesAPlayerHave(int amount)
+        {
+            return _goldCoinsOfEachPlayer.All(x => x != 6);
         }
 
         private void DisplayPlayerAdded(string playerName)
