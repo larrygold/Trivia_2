@@ -13,8 +13,6 @@ namespace UglyTrivia
 
         private int _currentPlayerIndex;
 
-        private int[] _positionOfEachPlayer;
-
         private int[] _goldCoinsOfEachPlayer;
         
         private bool[] _isInPenaltyBoxForEachPlayer;
@@ -36,8 +34,8 @@ namespace UglyTrivia
 
         private int CurrentPlayerPosition
         {
-            get => _positionOfEachPlayer[_currentPlayerIndex];
-            set => _positionOfEachPlayer[_currentPlayerIndex] = value;
+            get => _players._positionOfEachPlayer[_currentPlayerIndex];
+            set => _players._positionOfEachPlayer[_currentPlayerIndex] = value;
         }
 
         private int CurrentPlayerGoldCoins
@@ -104,7 +102,6 @@ namespace UglyTrivia
         private void InitializeAllFields()
         {
             _questions = new Questions();
-            _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
