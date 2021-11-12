@@ -27,8 +27,6 @@ namespace UglyTrivia
 
         private Questions _questions;
 
-        private List<List<string>> _decksOfQuestions;
-
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
         private Dictionary<List<string>, string> _questionCategoryDeckToName;
@@ -119,9 +117,6 @@ namespace UglyTrivia
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
-            _decksOfQuestions = new List<List<string>>
-                {_questions._popQuestions, _questions._scienceQuestions, _questions._sportsQuestions,
-                    _questions._rockQuestions};
             _questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
                 {_questions._popQuestions, "Pop"},
@@ -156,7 +151,7 @@ namespace UglyTrivia
         private void PopulateAllDecksWithQuestions()
         {
             for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
-                foreach (var deck in _decksOfQuestions)
+                foreach (var deck in _questions._decksOfQuestions)
                     GenerateQuestion(deck, questionIndex);
         }
 
