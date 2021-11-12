@@ -21,7 +21,6 @@ namespace UglyTrivia
         
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
-
         private Questions _questions;
 
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
@@ -30,7 +29,6 @@ namespace UglyTrivia
         public Game()
         {   
             InitializeAllFields();
-            _questions.PopulateAllDecksWithQuestions();
         }
 
         private int NumberPlayers => _players.Count;

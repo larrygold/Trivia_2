@@ -37,6 +37,7 @@ namespace TriviaApp
                 {"Sports", _sportsQuestions},
                 {"Rock", _rockQuestions}
             };
+            PopulateAllDecksWithQuestions();
         }
 
         public void GenerateQuestion(List<string> deck, int questionIndex)
