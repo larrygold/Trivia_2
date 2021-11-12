@@ -8,7 +8,7 @@ namespace TriviaApp
     {
         public List<string> _players;
         private int[] _positionOfEachPlayer;
-        public int[] _goldCoinsOfEachPlayer;
+        private int[] _goldCoinsOfEachPlayer;
         public bool[] _isInPenaltyBoxForEachPlayer;
 
         public int NumberPlayers => _players.Count;
@@ -35,6 +35,16 @@ namespace TriviaApp
         public void AddToPlace(int playerIndex, int addAmount)
         {
             _positionOfEachPlayer[playerIndex] += addAmount;
+        }
+
+        public int GetGoldCoins(int playerIndex)
+        {
+            return _goldCoinsOfEachPlayer[playerIndex];
+        }
+
+        public void AddToPurse(int playerIndex, int amount)
+        {
+            _goldCoinsOfEachPlayer[playerIndex] += amount;
         }
 
         private void DisplayPlayerAdded(string playerName)

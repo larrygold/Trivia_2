@@ -28,12 +28,6 @@ namespace UglyTrivia
 
         private string CurrentPlayerName => _players._players[_currentPlayerIndex];
 
-        private int CurrentPlayerGoldCoins
-        {
-            get => _players._goldCoinsOfEachPlayer[_currentPlayerIndex];
-            set => _players._goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
-        }
-
         private bool CurrentPlayerIsInPenaltyBox
         {
             get => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
@@ -207,13 +201,13 @@ namespace UglyTrivia
         {
             Console.WriteLine(CurrentPlayerName
                               + " now has "
-                              + CurrentPlayerGoldCoins
+                              + _players.GetGoldCoins(_currentPlayerIndex)
                               + " Gold Coins.");
         }
 
         private void AddGoldCoin()
         {
-            CurrentPlayerGoldCoins++;
+            _players.AddToPurse(_currentPlayerIndex, 1);
         }
 
         private static void DisplayCorrectAnswer()
