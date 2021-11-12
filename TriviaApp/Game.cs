@@ -25,7 +25,6 @@ namespace UglyTrivia
             InitializeAllFields();
         }
 
-        private int NumberPlayers => _players._players.Count;
         private string CurrentPlayerName => _players._players[_currentPlayerIndex];
 
         private int CurrentPlayerPosition
@@ -48,8 +47,7 @@ namespace UglyTrivia
 
         public void AddPlayer(string playerName)
         {
-            _players._players.Add(playerName);
-            DisplayPlayerAdded(playerName);
+            _players.AddPlayer(playerName);
         }
 
         public void Roll(int dieValue)
@@ -114,12 +112,6 @@ namespace UglyTrivia
                 {11, "Rock"}
             };
             _players = new Players();
-        }
-
-        private void DisplayPlayerAdded(string playerName)
-        {
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + NumberPlayers);
         }
 
         private void PlayNormally(int dieValue)
@@ -214,7 +206,7 @@ namespace UglyTrivia
         private void MoveToNextPlayer()
         {
             _currentPlayerIndex++;
-            if (_currentPlayerIndex == NumberPlayers)
+            if (_currentPlayerIndex == _players.NumberPlayers)
                 _currentPlayerIndex = 0;
         }
 
