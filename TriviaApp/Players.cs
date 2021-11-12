@@ -10,7 +10,7 @@ namespace TriviaApp
         public List<string> _players;
         private int[] _positionOfEachPlayer;
         private int[] _goldCoinsOfEachPlayer;
-        public bool[] _isInPenaltyBoxForEachPlayer;
+        private bool[] _isInPenaltyBoxForEachPlayer;
 
         public int NumberPlayers => _players.Count;
 
@@ -51,6 +51,16 @@ namespace TriviaApp
         public bool DoesAPlayerHave(int amount)
         {
             return _goldCoinsOfEachPlayer.All(x => x != 6);
+        }
+
+        public bool IsInPenaltyBox(int playerIndex)
+        {
+            return _isInPenaltyBoxForEachPlayer[playerIndex];
+        }
+
+        public void MoveToPenaltyBox(int playerIndex)
+        {
+            _isInPenaltyBoxForEachPlayer[playerIndex] = true;
         }
 
         private void DisplayPlayerAdded(string playerName)

@@ -8,17 +8,13 @@ namespace UglyTrivia
     public class Game
     {
         private Players _players;
-
-        private const int NumberPositionsOnBoard = 11;
-
         private int _currentPlayerIndex;
-
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
-        private Questions _questions;
-
+        private const int NumberPositionsOnBoard = 11;
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
+        private Questions _questions;
 
         public Game(Players players)
         {
@@ -28,17 +24,11 @@ namespace UglyTrivia
 
         private string CurrentPlayerName => _players._players[_currentPlayerIndex];
 
-        private bool CurrentPlayerIsInPenaltyBox
-        {
-            get => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
-            set => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
-        }
-
         public void Roll(int dieValue)
         {
             DisplayCurrentPlayerAndDieValue(dieValue);
 
-            if (CurrentPlayerIsInPenaltyBox)
+            if (_players.IsInPenaltyBox(_currentPlayerIndex))
             {
                 if (MustGetOutOfPenaltyBox(dieValue))
                 {
@@ -179,7 +169,7 @@ namespace UglyTrivia
 
         private bool CurrentPlayerStaysInPenaltyBox()
         {
-            return CurrentPlayerIsInPenaltyBox && !_isCurrentPlayerGettingOutOfPenaltyBox;
+            return _players.IsInPenaltyBox(_currentPlayerIndex) && !_isCurrentPlayerGettingOutOfPenaltyBox;
         }
 
         private void ProcessCorrectAnswer()
@@ -217,7 +207,7 @@ namespace UglyTrivia
 
         private void SendToPenaltyBox()
         {
-            CurrentPlayerIsInPenaltyBox = true;
+            _players.MoveToPenaltyBox(_currentPlayerIndex);
         }
 
         private void DisplaySentToPenaltyBox()
