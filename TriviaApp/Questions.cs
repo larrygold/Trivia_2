@@ -30,5 +30,11 @@ namespace TriviaApp
             };
 
         }
+
+        public void GenerateQuestion(List<string> deck, int questionIndex)
+        {
+            deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
+        }
+
     }
 }

@@ -140,12 +140,7 @@ namespace UglyTrivia
         {
             for (var questionIndex = 0; questionIndex < Questions.NumberQuestionsPerDeck; questionIndex++)
                 foreach (var deck in _questions._decksOfQuestions)
-                    GenerateQuestion(deck, questionIndex);
-        }
-
-        private void GenerateQuestion(List<string> deck, int questionIndex)
-        {
-            deck.Add($"{_questions._questionCategoryDeckToName[deck]} Question " + questionIndex);
+                    _questions.GenerateQuestion(deck, questionIndex);
         }
 
         private void DisplayPlayerAdded(string playerName)
