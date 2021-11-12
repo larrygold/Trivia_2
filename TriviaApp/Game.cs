@@ -199,12 +199,12 @@ namespace UglyTrivia
 
         private void RemoveQuestionFromDeck()
         {
-            _questions._questionCategoryNameToDeck[GetCurrentCategory()].RemoveAt(0);
+            _questions.RemoveQuestionFromDeck(GetCurrentCategory());
         }
 
         private void DisplayQuestion()
         {
-            Console.WriteLine(_questions._questionCategoryNameToDeck[GetCurrentCategory()].First());
+            _questions.DisplayQuestion(GetCurrentCategory());
         }
 
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TriviaApp
 {
@@ -50,7 +52,15 @@ namespace TriviaApp
                     GenerateQuestion(deck, questionIndex);
         }
 
+        public void RemoveQuestionFromDeck(string currentCategory)
+        {
+            _questionCategoryNameToDeck[currentCategory].RemoveAt(0);
+        }
 
+        public void DisplayQuestion(string currentCategory)
+        {
+            Console.WriteLine(_questionCategoryNameToDeck[currentCategory].First());
+        }
 
 
     }
