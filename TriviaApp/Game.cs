@@ -7,9 +7,11 @@ namespace UglyTrivia
 {
     public class Game
     {
+        private Players _players;
+
         private const int NumberPositionsOnBoard = 11;
 
-        private List<string> _players;
+        private List<string> _playersOld;
 
         private int _currentPlayerIndex;
 
@@ -31,8 +33,8 @@ namespace UglyTrivia
             InitializeAllFields();
         }
 
-        private int NumberPlayers => _players.Count;
-        private string CurrentPlayerName => _players[_currentPlayerIndex];
+        private int NumberPlayers => _playersOld.Count;
+        private string CurrentPlayerName => _playersOld[_currentPlayerIndex];
 
         private int CurrentPlayerPosition
         {
@@ -54,7 +56,7 @@ namespace UglyTrivia
 
         public void AddPlayer(string playerName)
         {
-            _players.Add(playerName);
+            _playersOld.Add(playerName);
             DisplayPlayerAdded(playerName);
         }
 
@@ -104,7 +106,7 @@ namespace UglyTrivia
         private void InitializeAllFields()
         {
             _questions = new Questions();
-            _players = new List<string>();
+            _playersOld = new List<string>();
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
@@ -123,6 +125,7 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
+            _players = new Players();
         }
 
         private void DisplayPlayerAdded(string playerName)
