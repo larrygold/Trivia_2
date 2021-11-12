@@ -9,6 +9,8 @@ namespace TriviaApp
         public List<string> _rockQuestions;
         public List<string> _sportsQuestions;
         public List<List<string>> _decksOfQuestions;
+        public const int NumberQuestionsPerDeck = 50;
+        public Dictionary<List<string>, string> _questionCategoryDeckToName;
 
         public Questions()
         {
@@ -19,6 +21,13 @@ namespace TriviaApp
             _decksOfQuestions = new List<List<string>>
             {_popQuestions, _scienceQuestions, _sportsQuestions,
                 _rockQuestions};
+            _questionCategoryDeckToName = new Dictionary<List<string>, string>
+            {
+                {_popQuestions, "Pop"},
+                {_scienceQuestions, "Science"},
+                {_sportsQuestions, "Sports"},
+                {_rockQuestions, "Rock"}
+            };
 
         }
     }

@@ -7,10 +7,7 @@ namespace UglyTrivia
 {
     public class Game
     {
-        private const int NumberQuestionsPerDeck = 50;
-
         private const int NumberPositionsOnBoard = 11;
-
 
         private List<string> _players;
 
@@ -28,8 +25,6 @@ namespace UglyTrivia
         private Questions _questions;
 
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
-
-        private Dictionary<List<string>, string> _questionCategoryDeckToName;
 
         private Dictionary<string, List<string>> _questionCategoryNameToDeck;
 
@@ -117,13 +112,6 @@ namespace UglyTrivia
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
-            _questionCategoryDeckToName = new Dictionary<List<string>, string>
-            {
-                {_questions._popQuestions, "Pop"},
-                {_questions._scienceQuestions, "Science"},
-                {_questions._sportsQuestions, "Sports"},
-                {_questions._rockQuestions, "Rock"}
-            };
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
                 {0, "Pop"},
@@ -150,14 +138,14 @@ namespace UglyTrivia
 
         private void PopulateAllDecksWithQuestions()
         {
-            for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
+            for (var questionIndex = 0; questionIndex < Questions.NumberQuestionsPerDeck; questionIndex++)
                 foreach (var deck in _questions._decksOfQuestions)
                     GenerateQuestion(deck, questionIndex);
         }
 
         private void GenerateQuestion(List<string> deck, int questionIndex)
         {
-            deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
+            deck.Add($"{_questions._questionCategoryDeckToName[deck]} Question " + questionIndex);
         }
 
         private void DisplayPlayerAdded(string playerName)
