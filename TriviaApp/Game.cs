@@ -28,12 +28,6 @@ namespace UglyTrivia
 
         private string CurrentPlayerName => _players._players[_currentPlayerIndex];
 
-        private int CurrentPlayerPosition
-        {
-            get => _players.GetPlace(_currentPlayerIndex);
-            set => _players.AddToPlace(_currentPlayerIndex, value - CurrentPlayerPosition);
-        }
-
         private int CurrentPlayerGoldCoins
         {
             get => _players._goldCoinsOfEachPlayer[_currentPlayerIndex];
@@ -141,14 +135,18 @@ namespace UglyTrivia
         {
             Console.WriteLine(CurrentPlayerName
                               + "'s new location is "
-                              + CurrentPlayerPosition);
+                              + _players.GetPlace(_currentPlayerIndex));
         }
 
         private void UpdatePosition(int dieValue)
         {
-            CurrentPlayerPosition += dieValue;
-            if (CurrentPlayerPosition > NumberPositionsOnBoard)
-                CurrentPlayerPosition -= NumberPositionsOnBoard + 1;
+            int val = _players.GetPlace(_currentPlayerIndex) + dieValue;
+            _players.AddToPlace(_currentPlayerIndex, val - _players.GetPlace(_currentPlayerIndex));
+            if (_players.GetPlace(_currentPlayerIndex) > NumberPositionsOnBoard)
+            {
+                int val1 = _players.GetPlace(_currentPlayerIndex) - (NumberPositionsOnBoard + 1);
+                _players.AddToPlace(_currentPlayerIndex, val1 - _players.GetPlace(_currentPlayerIndex));
+            }
         }
 
         private void DisplayGetOutOfPenaltyBox()
@@ -174,7 +172,7 @@ namespace UglyTrivia
 
         private string GetCurrentCategory()
         {
-            return _positionOnBoardToQuestionCategoryName[CurrentPlayerPosition];
+            return _positionOnBoardToQuestionCategoryName[_players.GetPlace(_currentPlayerIndex)];
         }
 
         private void ProcessIncorrectAnswer()
