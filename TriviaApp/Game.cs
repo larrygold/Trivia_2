@@ -13,8 +13,6 @@ namespace UglyTrivia
 
         private int _currentPlayerIndex;
 
-        private int[] _goldCoinsOfEachPlayer;
-        
         private bool[] _isInPenaltyBoxForEachPlayer;
         
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
@@ -40,8 +38,8 @@ namespace UglyTrivia
 
         private int CurrentPlayerGoldCoins
         {
-            get => _goldCoinsOfEachPlayer[_currentPlayerIndex];
-            set => _goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
+            get => _players._goldCoinsOfEachPlayer[_currentPlayerIndex];
+            set => _players._goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
         }
 
         private bool CurrentPlayerIsInPenaltyBox
@@ -96,13 +94,12 @@ namespace UglyTrivia
 
         public bool DoesGameContinue()
         {
-            return _goldCoinsOfEachPlayer.All(x => x != 6);
+            return _players._goldCoinsOfEachPlayer.All(x => x != 6);
         }
 
         private void InitializeAllFields()
         {
             _questions = new Questions();
-            _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
