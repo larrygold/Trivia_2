@@ -20,8 +20,9 @@ namespace UglyTrivia
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
 
-        public Game()
-        {   
+        public Game(Players players)
+        {
+            _players = players;
             InitializeAllFields();
         }
 
@@ -47,7 +48,7 @@ namespace UglyTrivia
 
         public void AddPlayer(string playerName)
         {
-            _players.AddPlayer(playerName);
+            _players.Add(playerName);
         }
 
         public void Roll(int dieValue)
@@ -111,7 +112,6 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
-            _players = new Players();
         }
 
         private void PlayNormally(int dieValue)

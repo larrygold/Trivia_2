@@ -21,7 +21,7 @@ namespace TriviaApp
             _isInPenaltyBoxForEachPlayer = new bool[6];
         }
 
-        public void AddPlayer(string playerName)
+        public void Add(string playerName)
         {
             _players.Add(playerName);
             DisplayPlayerAdded(playerName);
