@@ -11,8 +11,6 @@ namespace UglyTrivia
 
         private const int NumberPositionsOnBoard = 11;
 
-        private List<string> _playersOld;
-
         private int _currentPlayerIndex;
 
         private int[] _positionOfEachPlayer;
@@ -33,8 +31,8 @@ namespace UglyTrivia
             InitializeAllFields();
         }
 
-        private int NumberPlayers => _playersOld.Count;
-        private string CurrentPlayerName => _playersOld[_currentPlayerIndex];
+        private int NumberPlayers => _players._players.Count;
+        private string CurrentPlayerName => _players._players[_currentPlayerIndex];
 
         private int CurrentPlayerPosition
         {
@@ -56,7 +54,7 @@ namespace UglyTrivia
 
         public void AddPlayer(string playerName)
         {
-            _playersOld.Add(playerName);
+            _players._players.Add(playerName);
             DisplayPlayerAdded(playerName);
         }
 
@@ -106,7 +104,6 @@ namespace UglyTrivia
         private void InitializeAllFields()
         {
             _questions = new Questions();
-            _playersOld = new List<string>();
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];

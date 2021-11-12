@@ -6,5 +6,11 @@ namespace TriviaApp
 {
     public class Players
     {
+        public List<string> _players;
+
+        public Players()
+        {
+            _players = new List<string>();
+        }
     }
 }
