@@ -46,11 +46,6 @@ namespace UglyTrivia
             set => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
         }
 
-        public void AddPlayer(string playerName)
-        {
-            _players.Add(playerName);
-        }
-
         public void Roll(int dieValue)
         {
             DisplayCurrentPlayerAndDieValue(dieValue);
