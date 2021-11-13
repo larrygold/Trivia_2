@@ -16,9 +16,9 @@ namespace TriviaApp
         {
             Game aGame = new Game();
 
-            aGame.AddPlayer("Chet");
-            aGame.AddPlayer("Pat");
-            aGame.AddPlayer("Sue");
+            aGame.Players.AddPlayer("Chet");
+            aGame.Players.AddPlayer("Pat");
+            aGame.Players.AddPlayer("Sue");
 
             Random rand;
 

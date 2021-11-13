@@ -9,55 +9,47 @@ namespace UglyTrivia
         private const int NumberPositionsOnBoard = 11;
 
 
-        private List<string> _players;
-
         private int _currentPlayerIndex;
 
-        private int[] _positionOfEachPlayer;
-
-        private int[] _goldCoinsOfEachPlayer;
-        
-        private bool[] _isInPenaltyBoxForEachPlayer;
-        
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
 
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
         private readonly Questions _questions;
+        private readonly Players _players;
 
 
         public Game()
         {
             InitializeAllFields();
             _questions = new Questions();
+            _players = new Players();
         }
 
-        private int NumberPlayers => _players.Count;
-        private string CurrentPlayerName => _players[_currentPlayerIndex];
+        private string CurrentPlayerName => Players._players[_currentPlayerIndex];
 
         private int CurrentPlayerPosition
         {
-            get => _positionOfEachPlayer[_currentPlayerIndex];
-            set => _positionOfEachPlayer[_currentPlayerIndex] = value;
+            get => Players._positionOfEachPlayer[_currentPlayerIndex];
+            set => Players._positionOfEachPlayer[_currentPlayerIndex] = value;
         }
 
         private int CurrentPlayerGoldCoins
         {
-            get => _goldCoinsOfEachPlayer[_currentPlayerIndex];
-            set => _goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
+            get => Players._goldCoinsOfEachPlayer[_currentPlayerIndex];
+            set => Players._goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
         }
 
         private bool CurrentPlayerIsInPenaltyBox
         {
-            get => _isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
-            set => _isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
+            get => Players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
+            set => Players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
         }
 
-        public void AddPlayer(string playerName)
+        public Players Players
         {
-            _players.Add(playerName);
-            DisplayPlayerAdded(playerName);
+            get { return _players; }
         }
 
         public void Roll(int dieValue)
@@ -100,15 +92,11 @@ namespace UglyTrivia
 
         public bool DoesGameContinue()
         {
-            return _goldCoinsOfEachPlayer.All(x => x != 6);
+            return Players._goldCoinsOfEachPlayer.All(x => x != 6);
         }
 
         private void InitializeAllFields()
         {
-            _players = new List<string>();
-            _positionOfEachPlayer = new int[6];
-            _goldCoinsOfEachPlayer = new int[6];
-            _isInPenaltyBoxForEachPlayer = new bool[6];
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
                 {0, "Pop"},
@@ -124,12 +112,6 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
-        }
-
-        private void DisplayPlayerAdded(string playerName)
-        {
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + NumberPlayers);
         }
 
         private void PlayNormally(int dieValue)
@@ -220,7 +202,7 @@ namespace UglyTrivia
         private void MoveToNextPlayer()
         {
             _currentPlayerIndex++;
-            if (_currentPlayerIndex == NumberPlayers)
+            if (_currentPlayerIndex == Players.NumberPlayers)
                 _currentPlayerIndex = 0;
         }
 
