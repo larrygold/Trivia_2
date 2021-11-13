@@ -6,8 +6,6 @@ namespace UglyTrivia
 {
     public class Game
     {
-        private const int NumberQuestionsPerDeck = 50;
-
         private const int NumberPositionsOnBoard = 11;
 
 
@@ -24,27 +22,15 @@ namespace UglyTrivia
         private bool _isCurrentPlayerGettingOutOfPenaltyBox;
 
 
-        private List<List<string>> _decksOfQuestions;
-
-        private List<string> _popQuestions;
-
-        private List<string> _rockQuestions;
-
-        private List<string> _scienceQuestions;
-
-        private List<string> _sportsQuestions;
-
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
-        private Dictionary<List<string>, string> _questionCategoryDeckToName;
-
-        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
+        private readonly Questions _questions;
 
 
         public Game()
         {
             InitializeAllFields();
-            PopulateAllDecksWithQuestions();
+            _questions = new Questions(this);
         }
 
         private int NumberPlayers => _players.Count;
@@ -123,18 +109,19 @@ namespace UglyTrivia
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
-            _popQuestions = new List<string>();
-            _scienceQuestions = new List<string>();
-            _sportsQuestions = new List<string>();
-            _rockQuestions = new List<string>();
-            _decksOfQuestions = new List<List<string>>
-                {_popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions};
-            _questionCategoryDeckToName = new Dictionary<List<string>, string>
+            _questions._popQuestions = new List<string>();
+            _questions._scienceQuestions = new List<string>();
+            _questions._sportsQuestions = new List<string>();
+            _questions._rockQuestions = new List<string>();
+            _questions._decksOfQuestions = new List<List<string>>
+                {
+                    _questions._popQuestions, _questions._scienceQuestions, _questions._sportsQuestions, _questions._rockQuestions};
+            _questions._questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
-                {_popQuestions, "Pop"},
-                {_scienceQuestions, "Science"},
-                {_sportsQuestions, "Sports"},
-                {_rockQuestions, "Rock"}
+                {_questions._popQuestions, "Pop"},
+                {_questions._scienceQuestions, "Science"},
+                {_questions._sportsQuestions, "Sports"},
+                {_questions._rockQuestions, "Rock"}
             };
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
@@ -151,25 +138,13 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
-            _questionCategoryNameToDeck = new Dictionary<string, List<string>>
+            _questions._questionCategoryNameToDeck = new Dictionary<string, List<string>>
             {
-                {"Pop", _popQuestions},
-                {"Science", _scienceQuestions},
-                {"Sports", _sportsQuestions},
-                {"Rock", _rockQuestions}
+                {"Pop", _questions._popQuestions},
+                {"Science", _questions._scienceQuestions},
+                {"Sports", _questions._sportsQuestions},
+                {"Rock", _questions._rockQuestions}
             };
-        }
-
-        private void PopulateAllDecksWithQuestions()
-        {
-            for (var questionIndex = 0; questionIndex < NumberQuestionsPerDeck; questionIndex++)
-                foreach (var deck in _decksOfQuestions)
-                    GenerateQuestion(deck, questionIndex);
-        }
-
-        private void GenerateQuestion(List<string> deck, int questionIndex)
-        {
-            deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
         }
 
         private void DisplayPlayerAdded(string playerName)
@@ -183,7 +158,7 @@ namespace UglyTrivia
             UpdatePosition(dieValue);
             DisplayUpdatedPosition();
             DisplayCurrentCategory();
-            AskQuestion();
+            _questions.AskQuestion();
         }
 
         private static bool MustGetOutOfPenaltyBox(int dieValue)
@@ -234,22 +209,6 @@ namespace UglyTrivia
         {
             Console.WriteLine(CurrentPlayerName + " is the current player");
             Console.WriteLine("They have rolled a " + dieValue);
-        }
-
-        private void AskQuestion()
-        {
-            DisplayQuestion();
-            RemoveQuestionFromDeck();
-        }
-
-        private void RemoveQuestionFromDeck()
-        {
-            _questionCategoryNameToDeck[GetCurrentCategory()].RemoveAt(0);
-        }
-
-        private void DisplayQuestion()
-        {
-            Console.WriteLine(_questionCategoryNameToDeck[GetCurrentCategory()].First());
         }
 
 
