@@ -17,7 +17,6 @@ namespace UglyTrivia
         private Dictionary<int, string> _positionOnBoardToQuestionCategoryName;
 
         private readonly Questions _questions;
-        private readonly Players _players;
 
 
         public Game()
@@ -27,29 +26,26 @@ namespace UglyTrivia
             _players = new Players();
         }
 
-        private string CurrentPlayerName => Players._players[_currentPlayerIndex];
+        private Players _players;
+
+        private string CurrentPlayerName => _players._players[_currentPlayerIndex];
 
         private int CurrentPlayerPosition
         {
-            get => Players._positionOfEachPlayer[_currentPlayerIndex];
-            set => Players._positionOfEachPlayer[_currentPlayerIndex] = value;
+            get => _players._positionOfEachPlayer[_currentPlayerIndex];
+            set => _players._positionOfEachPlayer[_currentPlayerIndex] = value;
         }
 
         private int CurrentPlayerGoldCoins
         {
-            get => Players._goldCoinsOfEachPlayer[_currentPlayerIndex];
-            set => Players._goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
+            get => _players._goldCoinsOfEachPlayer[_currentPlayerIndex];
+            set => _players._goldCoinsOfEachPlayer[_currentPlayerIndex] = value;
         }
 
         private bool CurrentPlayerIsInPenaltyBox
         {
-            get => Players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
-            set => Players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
-        }
-
-        public Players Players
-        {
-            get { return _players; }
+            get => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex];
+            set => _players._isInPenaltyBoxForEachPlayer[_currentPlayerIndex] = value;
         }
 
         public void Roll(int dieValue)
@@ -92,7 +88,7 @@ namespace UglyTrivia
 
         public bool DoesGameContinue()
         {
-            return Players._goldCoinsOfEachPlayer.All(x => x != 6);
+            return _players._goldCoinsOfEachPlayer.All(x => x != 6);
         }
 
         private void InitializeAllFields()
@@ -202,7 +198,7 @@ namespace UglyTrivia
         private void MoveToNextPlayer()
         {
             _currentPlayerIndex++;
-            if (_currentPlayerIndex == Players.NumberPlayers)
+            if (_currentPlayerIndex == _players.NumberPlayers)
                 _currentPlayerIndex = 0;
         }
 
