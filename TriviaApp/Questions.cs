@@ -7,39 +7,33 @@ namespace UglyTrivia
     public class Questions
     {
         private const int NumberQuestionsPerDeck = 50;
-        private Game _game;
-        private List<List<string>> _decksOfQuestions;
-        private List<string> _popQuestions;
-        private List<string> _rockQuestions;
-        private List<string> _scienceQuestions;
-        private List<string> _sportsQuestions;
-        private Dictionary<List<string>, string> _questionCategoryDeckToName;
-        private Dictionary<string, List<string>> _questionCategoryNameToDeck;
+        private readonly List<List<string>> _decksOfQuestions;
+        private readonly Dictionary<List<string>, string> _questionCategoryDeckToName;
+        private readonly Dictionary<string, List<string>> _questionCategoryNameToDeck;
 
-        public Questions(Game game)
+        public Questions()
         {
-            _game = game;
-            _popQuestions = new List<string>();
-            _scienceQuestions = new List<string>();
-            _sportsQuestions = new List<string>();
-            _rockQuestions = new List<string>();
+            var popQuestions = new List<string>();
+            var scienceQuestions = new List<string>();
+            var sportsQuestions = new List<string>();
+            var rockQuestions = new List<string>();
             _decksOfQuestions = new List<List<string>>
             {
-                _popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions
+                popQuestions, scienceQuestions, sportsQuestions, rockQuestions
             };
             _questionCategoryDeckToName = new Dictionary<List<string>, string>
             {
-                {_popQuestions, "Pop"},
-                {_scienceQuestions, "Science"},
-                {_sportsQuestions, "Sports"},
-                {_rockQuestions, "Rock"}
+                {popQuestions, "Pop"},
+                {scienceQuestions, "Science"},
+                {sportsQuestions, "Sports"},
+                {rockQuestions, "Rock"}
             };
             _questionCategoryNameToDeck = new Dictionary<string, List<string>>
             {
-                {"Pop", _popQuestions},
-                {"Science", _scienceQuestions},
-                {"Sports", _sportsQuestions},
-                {"Rock", _rockQuestions}
+                {"Pop", popQuestions},
+                {"Science", scienceQuestions},
+                {"Sports", sportsQuestions},
+                {"Rock", rockQuestions}
             };
             PopulateAllDecksWithQuestions();
         }

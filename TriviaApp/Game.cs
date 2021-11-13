@@ -30,7 +30,7 @@ namespace UglyTrivia
         public Game()
         {
             InitializeAllFields();
-            _questions = new Questions(this);
+            _questions = new Questions();
         }
 
         private int NumberPlayers => _players.Count;
