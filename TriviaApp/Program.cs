@@ -14,12 +14,13 @@ namespace TriviaApp
 
         public static void Game(int? seed)
         {
-            Game aGame = new Game();
+            var players = new Players();
+            players.Add("Chet");
+            players.Add("Pat");
+            players.Add("Sue");
 
-            aGame.Players.Add("Chet");
-            aGame.Players.Add("Pat");
-            aGame.Players.Add("Sue");
-
+            Game aGame = new Game(players);
+            
             Random rand;
 
             if (seed != null)
