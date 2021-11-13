@@ -18,8 +18,30 @@ namespace UglyTrivia
 
         public Questions(Game game)
         {
-            PopulateAllDecksWithQuestions();
             _game = game;
+            _popQuestions = new List<string>();
+            _scienceQuestions = new List<string>();
+            _sportsQuestions = new List<string>();
+            _rockQuestions = new List<string>();
+            _decksOfQuestions = new List<List<string>>
+            {
+                _popQuestions, _scienceQuestions, _sportsQuestions, _rockQuestions
+            };
+            _questionCategoryDeckToName = new Dictionary<List<string>, string>
+            {
+                {_popQuestions, "Pop"},
+                {_scienceQuestions, "Science"},
+                {_sportsQuestions, "Sports"},
+                {_rockQuestions, "Rock"}
+            };
+            _questionCategoryNameToDeck = new Dictionary<string, List<string>>
+            {
+                {"Pop", _popQuestions},
+                {"Science", _scienceQuestions},
+                {"Sports", _sportsQuestions},
+                {"Rock", _rockQuestions}
+            };
+            PopulateAllDecksWithQuestions();
         }
 
         private void PopulateAllDecksWithQuestions()
@@ -34,20 +56,20 @@ namespace UglyTrivia
             deck.Add($"{_questionCategoryDeckToName[deck]} Question " + questionIndex);
         }
 
-        private void AskQuestion()
+        public void AskQuestion(string currentCategory)
         {
-            DisplayQuestion();
-            RemoveQuestionFromDeck();
+            DisplayQuestion(currentCategory);
+            RemoveQuestionFromDeck(currentCategory);
         }
 
-        private void RemoveQuestionFromDeck()
+        private void RemoveQuestionFromDeck(string currentCategory)
         {
-            _questionCategoryNameToDeck[_game.GetCurrentCategory()].RemoveAt(0);
+            _questionCategoryNameToDeck[currentCategory].RemoveAt(0);
         }
 
-        private void DisplayQuestion()
+        private void DisplayQuestion(string currentCategory)
         {
-            Console.WriteLine(_questionCategoryNameToDeck[_game.GetCurrentCategory()].First());
+            Console.WriteLine(_questionCategoryNameToDeck[currentCategory].First());
         }
     }
 }

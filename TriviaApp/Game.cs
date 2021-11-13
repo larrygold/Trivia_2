@@ -109,20 +109,6 @@ namespace UglyTrivia
             _positionOfEachPlayer = new int[6];
             _goldCoinsOfEachPlayer = new int[6];
             _isInPenaltyBoxForEachPlayer = new bool[6];
-            _questions._popQuestions = new List<string>();
-            _questions._scienceQuestions = new List<string>();
-            _questions._sportsQuestions = new List<string>();
-            _questions._rockQuestions = new List<string>();
-            _questions._decksOfQuestions = new List<List<string>>
-                {
-                    _questions._popQuestions, _questions._scienceQuestions, _questions._sportsQuestions, _questions._rockQuestions};
-            _questions._questionCategoryDeckToName = new Dictionary<List<string>, string>
-            {
-                {_questions._popQuestions, "Pop"},
-                {_questions._scienceQuestions, "Science"},
-                {_questions._sportsQuestions, "Sports"},
-                {_questions._rockQuestions, "Rock"}
-            };
             _positionOnBoardToQuestionCategoryName = new Dictionary<int, string>
             {
                 {0, "Pop"},
@@ -138,13 +124,6 @@ namespace UglyTrivia
                 {10, "Sports"},
                 {11, "Rock"}
             };
-            _questions._questionCategoryNameToDeck = new Dictionary<string, List<string>>
-            {
-                {"Pop", _questions._popQuestions},
-                {"Science", _questions._scienceQuestions},
-                {"Sports", _questions._sportsQuestions},
-                {"Rock", _questions._rockQuestions}
-            };
         }
 
         private void DisplayPlayerAdded(string playerName)
@@ -158,7 +137,7 @@ namespace UglyTrivia
             UpdatePosition(dieValue);
             DisplayUpdatedPosition();
             DisplayCurrentCategory();
-            _questions.AskQuestion();
+            _questions.AskQuestion(GetCurrentCategory());
         }
 
         private static bool MustGetOutOfPenaltyBox(int dieValue)
